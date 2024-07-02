@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from pabutools.election import OrdinalBallot
+from pabutools.election import OrdinalBallot, ApprovalBallot
 from pabutools.election.pabulib import (
     parse_pabulib,
     parse_pabulib_from_string,
@@ -93,6 +93,71 @@ voter_id;age;sex;voting_method;vote
 
         os.remove("test.pb")
 
+    def test_empty_voters(self):
+        contents = """META
+key;value
+description;Auto-filled description
+country;Auto-filled country
+unit;Auto-filled unit
+instance;Auto-filled instance
+num_projects;20
+num_votes;1000
+budget;600000
+vote_type;approval
+rule;Auto-filled rule
+PROJECTS
+project_id;cost
+p0;124200
+p1;128400
+p2;135600
+p3;128400
+p4;316929
+p5;51599
+p6;66000
+p7;55200
+p8;55800
+p9;54000
+p10;66600
+p11;61199
+p12;51000
+p13;59400
+p14;59400
+p15;58800
+p16;63000
+p17;64800
+p18;66000
+p19;57600
+VOTES
+voter_id;vote
+0;p12,p19,p1,p14
+1;p11,p1,p13
+2;p16
+3;p12,p4,p9
+4;p0
+5;p12,p18,p16,p2
+6;
+7;p6,p3,p13,p17,p19
+8;p5,p10
+9;
+10;p0,p2
+11;p11,p6,p2
+12;p16,p19
+13;
+14;p10,p2"""
+
+        with open("test.pb", "w", encoding="utf-8") as f:
+            f.write(contents)
+
+        for instance, profile in [
+            parse_pabulib("test.pb"),
+            parse_pabulib_from_string(contents),
+        ]:
+            assert len(instance) == 20
+            assert len(profile) == 15
+            assert profile[6] == ApprovalBallot()
+
+        os.remove("test.pb")
+
     def test_cumulative(self):
         contents = """META
 key;value
@@ -156,7 +221,9 @@ voter_id;vote;points
 8;14,8,2,4;3,2,1,1
 9;1,6,7,9,10,20,30;1,1,1,1,1,1,1
 10;6,7;3,3
-11;2,14,8;3,3,1"""
+11;2,14,8;3,3,1
+12;
+13;6,7;3,3"""
 
         with open("test.pb", "w", encoding="utf-8") as f:
             f.write(contents)
@@ -167,7 +234,7 @@ voter_id;vote;points
         ]:
             assert len(instance) == 30
             assert instance.budget_limit == 1000000
-            assert len(profile) == 12
+            assert len(profile) == 14
             assert len(profile[0]) == 4
             assert len(profile[4]) == 5
 
@@ -247,7 +314,8 @@ voter_id;vote;points
 8;14,8,2,4;3,2,1,1
 9;1,6,7,9,10,20,30;1,1,1,1,1,1,1
 10;6,7;3,3
-11;2,14,8;3,3,1"""
+11;2,14,8;3,3,1
+12;"""
 
         with open("test.pb", "w", encoding="utf-8") as f:
             f.write(contents)
@@ -452,6 +520,7 @@ voter_id;vote;voting_method;district
 42;95,75,111;paper;PODGÓRZE DUCHACKIE
 43;84,101,83;internet;PODGÓRZE
 44;4,36,41;internet;KROWODRZA
+45;;internet;KROWODRZA
 """
 
         with open("test.pb", "w", encoding="utf-8") as f:
@@ -463,7 +532,7 @@ voter_id;vote;voting_method;district
         ]:
             assert len(instance) == 123
             assert instance.budget_limit == 8000100
-            assert len(profile) == 45
+            assert len(profile) == 46
             assert len(profile[44]) == 3
             assert len(profile[4]) == 3
 

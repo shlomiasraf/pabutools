@@ -390,10 +390,11 @@ def priceable(
     else:
         status = mip_model.optimize(max_seconds=max_seconds)
 
-    if status == OptimizationStatus.INF_OR_UNBD:
+    if hasattr(OptimizationStatus, "INF_OR_UNBD") and status == OptimizationStatus.INF_OR_UNBD:
         # https://support.gurobi.com/hc/en-us/articles/4402704428177-How-do-I-resolve-the-error-Model-is-infeasible-or-unbounded
         # https://github.com/coin-or/python-mip/blob/1.15.0/mip/gurobi.py#L777
         # https://github.com/coin-or/python-mip/blob/1.16-pre/mip/gurobi.py#L778
+        # This is not part of old python-mip version, hence the first test
         #
         mip_model.solver.set_int_param("DualReductions", 0)
         mip_model.reset()

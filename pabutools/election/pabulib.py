@@ -96,24 +96,27 @@ def parse_pabulib_from_string(file_content: str) -> tuple[Instance, Profile]:
             if vote_type == "approval":
                 ballot = ApprovalBallot()
                 for project_name in ballot_meta["vote"].split(","):
-                    ballot.add(instance.get_project(project_name))
+                    if project_name:
+                        ballot.add(instance.get_project(project_name))
                 ballot_meta.pop("vote")
             elif vote_type in ["scoring", "cumulative"]:
                 if vote_type == "scoring":
                     ballot = CardinalBallot()
                 else:
                     ballot = CumulativeBallot()
-                points = ballot_meta["points"].split(",")
-                for index, project_name in enumerate(ballot_meta["vote"].split(",")):
-                    ballot[instance.get_project(project_name)] = str_as_frac(
-                        points[index].strip()
-                    )
-                ballot_meta.pop("vote")
-                ballot_meta.pop("points")
+                if "points" in ballot_meta:  # if not, the ballot should be empty
+                    points = ballot_meta["points"].split(",")
+                    for index, project_name in enumerate(ballot_meta["vote"].split(",")):
+                        ballot[instance.get_project(project_name)] = str_as_frac(
+                            points[index].strip()
+                        )
+                    ballot_meta.pop("vote")
+                    ballot_meta.pop("points")
             elif vote_type == "ordinal":
                 ballot = OrdinalBallot()
                 for project_name in ballot_meta["vote"].split(","):
-                    ballot.append(instance.get_project(project_name))
+                    if project_name:
+                        ballot.append(instance.get_project(project_name))
                 ballot_meta.pop("vote")
             else:
                 raise NotImplementedError(
