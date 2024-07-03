@@ -50,8 +50,10 @@ class MESVisualiser(Visualiser):
         None
     """
 
-    template = ENV.get_template('./templates/mes_round_analysis_template.html') 
-    page_summary_template = ENV.get_template('./templates/mes_page_summary_template.html')
+    template = ENV.get_template("./templates/mes_round_analysis_template.html")
+    page_summary_template = ENV.get_template(
+        "./templates/mes_page_summary_template.html"
+    )
 
     def __init__(self, profile, instance, outcome, verbose=False):
         self.profile = profile
@@ -59,7 +61,11 @@ class MESVisualiser(Visualiser):
         self.verbose = verbose
         self.outcome = outcome
         self.details = outcome.details
-        self.mes_iterations = [iteration for iteration in outcome.details.iterations if iteration.selected_project is not None]
+        self.mes_iterations = [
+            iteration
+            for iteration in outcome.details.iterations
+            if iteration.selected_project is not None
+        ]
         self.were_projects_selected = True
         if not self.mes_iterations:
             self.were_projects_selected = False
@@ -84,11 +90,11 @@ class MESVisualiser(Visualiser):
         last_iteration = self.mes_iterations[-1]
         for i in range(len(self.mes_iterations) - 1):
             current_iteration = self.mes_iterations[i]
-            next_iteration = self.mes_iterations[i+1]
+            next_iteration = self.mes_iterations[i + 1]
             round = dict()
             round["_current_iteration"] = current_iteration
             round["id"] = current_iteration.selected_project.name
-            round["name"] = current_iteration.selected_project.name 
+            round["name"] = current_iteration.selected_project.name
             data = {
                 p.name: float(1 / p.affordability)
                 for p in current_iteration.get_all_projects()
@@ -103,17 +109,43 @@ class MESVisualiser(Visualiser):
 
             # Statistics for Page Summary page
             round["cost"] = current_iteration.selected_project.cost
-            round["totalvotes"] = len(current_iteration.selected_project.supporter_indices)
-            round["initial_voter_funding"] = initial_budget_per_voter * len(current_iteration.selected_project.supporter_indices)
+            round["totalvotes"] = len(
+                current_iteration.selected_project.supporter_indices
+            )
+            round["initial_voter_funding"] = initial_budget_per_voter * len(
+                current_iteration.selected_project.supporter_indices
+            )
             unsorted_funding_lost_per_round = {
                 r: (
-                    float(sum(self.mes_iterations[r].voters_budget[p] for p in current_iteration.selected_project.supporter_indices))       
-                    - float(sum(self.mes_iterations[r+1].voters_budget[p] for p in current_iteration.selected_project.supporter_indices))   
-                ) for r in range(0, i)
+                    float(
+                        sum(
+                            self.mes_iterations[r].voters_budget[p]
+                            for p in current_iteration.selected_project.supporter_indices
+                        )
+                    )
+                    - float(
+                        sum(
+                            self.mes_iterations[r + 1].voters_budget[p]
+                            for p in current_iteration.selected_project.supporter_indices
+                        )
+                    )
+                )
+                for r in range(0, i)
             }
-            round["funding_lost_per_round"] = dict(sorted(unsorted_funding_lost_per_round.items(), key = lambda x: x[1], reverse = True))
-            round["final_voter_funding"] = float(sum(current_iteration.voters_budget[p] for p in current_iteration.selected_project.supporter_indices))
-           
+            round["funding_lost_per_round"] = dict(
+                sorted(
+                    unsorted_funding_lost_per_round.items(),
+                    key=lambda x: x[1],
+                    reverse=True,
+                )
+            )
+            round["final_voter_funding"] = float(
+                sum(
+                    current_iteration.voters_budget[p]
+                    for p in current_iteration.selected_project.supporter_indices
+                )
+            )
+
             # Get dropped projects
             dropped_projects = []
             for p in current_iteration:
@@ -244,9 +276,7 @@ class MESVisualiser(Visualiser):
                     p.name: 0 for p in last_iteration.get_all_projects()
                 },
                 "cost": last_iteration.selected_project.cost,
-                "totalvotes": len(
-                    last_iteration.selected_project.supporter_indices
-                ),
+                "totalvotes": len(last_iteration.selected_project.supporter_indices),
                 "initial_voter_funding": initial_budget_per_voter
                 * len(last_iteration.selected_project.supporter_indices),
                 "funding_lost_per_round": dict(
@@ -387,7 +417,9 @@ class MESVisualiser(Visualiser):
         None
         """
         if not self.were_projects_selected:
-            print("No projects were selected in this election - therefore no visualisation will be created.")
+            print(
+                "No projects were selected in this election - therefore no visualisation will be created."
+            )
             return
         self._calculate()
         for round in self.rounds:
@@ -397,36 +429,56 @@ class MESVisualiser(Visualiser):
 
         # Round by Round
         round_analysis_page_output = MESVisualiser.template.render(
-            election_name=self.instance.meta["description"] if "description" in self.instance.meta else "No description provided.", 
-            currency=self.instance.meta["currency"] if "currency" in self.instance.meta else "CUR",
-            rounds=self.rounds, 
+            election_name=(
+                self.instance.meta["description"]
+                if "description" in self.instance.meta
+                else "No description provided."
+            ),
+            currency=(
+                self.instance.meta["currency"]
+                if "currency" in self.instance.meta
+                else "CUR"
+            ),
+            rounds=self.rounds,
             projects=self.instance.project_meta,
             number_of_elected_projects=len(self.outcome),
             number_of_unelected_projects=len(self.instance) - len(self.outcome),
             spent=total_cost(p for p in self.instance if p.name in self.outcome),
             budget=self.instance.meta["budget"],
             total_votes=self.instance.meta["num_votes"],
-            name=name
+            name=name,
         )
 
         # Page Summary
         summary_page_output = MESVisualiser.page_summary_template.render(
-            election_name=self.instance.meta["description"] if "description" in self.instance.meta else "No description provided.",
-            currency=self.instance.meta["currency"] if "currency" in self.instance.meta else "CUR", 
-            rounds=self.rounds, 
+            election_name=(
+                self.instance.meta["description"]
+                if "description" in self.instance.meta
+                else "No description provided."
+            ),
+            currency=(
+                self.instance.meta["currency"]
+                if "currency" in self.instance.meta
+                else "CUR"
+            ),
+            rounds=self.rounds,
             projects=self.instance.project_meta,
             number_of_elected_projects=len(self.outcome),
             number_of_unelected_projects=len(self.instance) - len(self.outcome),
             spent=total_cost(p for p in self.instance if p.name in self.outcome),
             budget=self.instance.meta["budget"],
             total_votes=self.instance.meta["num_votes"],
-            name=name
+            name=name,
         )
         if not os.path.exists(output_folder_path):
             os.makedirs(output_folder_path)
-        with open(f"{output_folder_path}/{name}_round_analysis.html", "w", encoding="utf-8") as o:
+        with open(
+            f"{output_folder_path}/{name}_round_analysis.html", "w", encoding="utf-8"
+        ) as o:
             o.write(round_analysis_page_output)
-        with open(f"{output_folder_path}/{name}_summary.html", "w", encoding="utf-8") as o:
+        with open(
+            f"{output_folder_path}/{name}_summary.html", "w", encoding="utf-8"
+        ) as o:
             o.write(summary_page_output)
 
 
@@ -462,10 +514,15 @@ class GreedyWelfareVisualiser(Visualiser):
         self.details = outcome.details
         self.rounds = []
         project_votes = outcome.details.projects
-        project_votes = {project_votes[k].project.name: float(project_votes[k].score) for k in range(len(project_votes))}
-        self.project_votes = {k: project_votes[k] for k in sorted(project_votes, key=project_votes.get, reverse=True)}
-        
-    
+        project_votes = {
+            project_votes[k].project.name: float(project_votes[k].score)
+            for k in range(len(project_votes))
+        }
+        self.project_votes = {
+            k: project_votes[k]
+            for k in sorted(project_votes, key=project_votes.get, reverse=True)
+        }
+
     def _calculate(self):
         """
         Calculate the data necessary for the visualisation.
@@ -474,7 +531,9 @@ class GreedyWelfareVisualiser(Visualiser):
         self.rounds = []
         current_round = {}
         rejected_projects = []
-        projects = sorted(self.details.projects, key=lambda x: float(x.score), reverse=True)
+        projects = sorted(
+            self.details.projects, key=lambda x: float(x.score), reverse=True
+        )
         for project in projects:
             if project.discarded:
                 rejected_projects.append(
@@ -533,9 +592,19 @@ class GreedyWelfareVisualiser(Visualiser):
 
         # Round by Round
         round_analysis_page_output = GreedyWelfareVisualiser.template.render(
-            election_name=self.instance.meta["description"] if "description" in self.instance.meta else "No description provided.",
-            currency=self.instance.meta["currency"] if "currency" in self.instance.meta else "CUR", 
-            projects_selected_or_rejected = json.dumps({str(p): (p in self.outcome) for p in self.project_votes.keys()}),
+            election_name=(
+                self.instance.meta["description"]
+                if "description" in self.instance.meta
+                else "No description provided."
+            ),
+            currency=(
+                self.instance.meta["currency"]
+                if "currency" in self.instance.meta
+                else "CUR"
+            ),
+            projects_selected_or_rejected=json.dumps(
+                {str(p): (p in self.outcome) for p in self.project_votes.keys()}
+            ),
             project_votes=self.project_votes,
             rounds=self.rounds,
             projects=self.instance.project_meta,
@@ -544,9 +613,11 @@ class GreedyWelfareVisualiser(Visualiser):
             spent=total_cost(p for p in self.instance if p.name in self.outcome),
             budget=self.instance.meta["budget"],
             total_votes=self.instance.meta["num_votes"],
-            name=name
+            name=name,
         )
         if not os.path.exists(output_folder_path):
             os.makedirs(output_folder_path)
-        with open(f"{output_folder_path}/{name}_round_analysis.html", "w", encoding="utf-8") as o:
+        with open(
+            f"{output_folder_path}/{name}_round_analysis.html", "w", encoding="utf-8"
+        ) as o:
             o.write(round_analysis_page_output)

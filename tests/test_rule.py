@@ -109,9 +109,9 @@ def dummy_elections():
     test_election.irr_results_sat[max_additive_utilitarian_welfare][Cost_Sat] = sorted(
         [[p[0], p[2]], [p[1]], [p[2], p[3]]]
     )
-    test_election.irr_results_sat[max_additive_utilitarian_welfare][
-        Cardinality_Sat
-    ] = sorted([[p[0], p[3]], [p[0], p[2]], [p[2], p[3]]])
+    test_election.irr_results_sat[max_additive_utilitarian_welfare][Cardinality_Sat] = (
+        sorted([[p[0], p[3]], [p[0], p[2]], [p[2], p[3]]])
+    )
     res.append(test_election)
 
     # Approval example 2
@@ -193,9 +193,9 @@ def dummy_elections():
     test_election.irr_results_sat[max_additive_utilitarian_welfare][Cost_Sat] = sorted(
         [[p[0], p[2]], [p[2]]]
     )
-    test_election.irr_results_sat[max_additive_utilitarian_welfare][
-        Cardinality_Sat
-    ] = sorted([[p[0], p[2]]])
+    test_election.irr_results_sat[max_additive_utilitarian_welfare][Cardinality_Sat] = (
+        sorted([[p[0], p[2]]])
+    )
     test_election.irr_results_sat[method_of_equal_shares][Cost_Sat] = sorted([[]])
     test_election.irr_results_sat[mes_iterated][Cost_Sat] = sorted([[p[2]]])
     test_election.irr_results_sat[method_of_equal_shares][Cardinality_Sat] = sorted(
@@ -212,9 +212,9 @@ def dummy_elections():
     prof = ApprovalProfile([ApprovalBallot()], instance=inst)
     test_election = DummyElection("EmptyProfile", p, inst, prof)
     for sat_class in ALL_SAT:
-        test_election.irr_results_sat[max_additive_utilitarian_welfare][
-            sat_class
-        ] = sorted([sorted(list(b)) for b in inst.budget_allocations()])
+        test_election.irr_results_sat[max_additive_utilitarian_welfare][sat_class] = (
+            sorted([sorted(list(b)) for b in inst.budget_allocations()])
+        )
         test_election.irr_results_sat[greedy_utilitarian_welfare][sat_class] = sorted(
             [
                 sorted(list(b))
@@ -239,9 +239,9 @@ def dummy_elections():
     initial_alloc = p[:1]
     test_election = DummyElection("EmptyProfile_Initial", p, inst, prof, initial_alloc)
     for sat_class in ALL_SAT:
-        test_election.irr_results_sat[max_additive_utilitarian_welfare][
-            sat_class
-        ] = sorted([sorted(list(b)) for b in inst.budget_allocations() if p[0] in b])
+        test_election.irr_results_sat[max_additive_utilitarian_welfare][sat_class] = (
+            sorted([sorted(list(b)) for b in inst.budget_allocations() if p[0] in b])
+        )
         test_election.irr_results_sat[greedy_utilitarian_welfare][sat_class] = sorted(
             [
                 sorted(list(b))
@@ -718,7 +718,7 @@ class TestRule(TestCase):
                         frac(3, 8),
                         frac(1, 2),
                         frac(1, 2),
-                    ]
+                    ],
                 ],
             ),
             (
@@ -762,7 +762,7 @@ class TestRule(TestCase):
                         frac(3, 8),
                         frac(1, 2),
                         frac(1, 2),
-                    ]
+                    ],
                 ],
             ),
             (
@@ -796,16 +796,16 @@ class TestRule(TestCase):
                         frac(1, 2),
                     ],
                     [
-                        frac(1, 8), 
-                        frac(1, 8), 
-                        frac(3, 8), 
-                        frac(1, 8), 
+                        frac(1, 8),
+                        frac(1, 8),
+                        frac(3, 8),
+                        frac(1, 8),
                         frac(1, 8),
                         frac(3, 8),
                         frac(3, 8),
                         frac(3, 8),
                         frac(1, 2),
-                        frac(1, 2)
+                        frac(1, 2),
                     ],
                 ],
             ),
@@ -849,22 +849,30 @@ class TestRule(TestCase):
                         frac(0, 1),
                         frac(0, 1),
                         frac(1, 2),
-                        frac(1, 2)
+                        frac(1, 2),
+                    ],
+                ],
+            ),
+            (
+                [5, 5, 5, 5, 5],
+                [0, 1, 2],
+                [0, 1, 2],
+                [],
+                [
+                    [
+                        frac(1, 2),
+                        frac(1, 2),
+                        frac(1, 2),
+                        frac(1, 2),
+                        frac(1, 2),
+                        frac(1, 2),
+                        frac(1, 2),
+                        frac(1, 2),
+                        frac(1, 2),
+                        frac(1, 2),
                     ]
                 ],
             ),
-            ([5, 5, 5, 5, 5], [0, 1, 2], [0, 1, 2], [], [
-                [frac(1, 2),
-                frac(1, 2),
-                frac(1, 2),
-                frac(1, 2),
-                frac(1, 2),
-                frac(1, 2),
-                frac(1, 2),
-                frac(1, 2),
-                frac(1, 2),
-                frac(1, 2)]
-            ]),
             (
                 [5, 1, 2, 1, 2],
                 [0, 1, 2],
