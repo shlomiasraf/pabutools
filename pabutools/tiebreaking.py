@@ -18,23 +18,23 @@ class TieBreakingRule:
 
     Parameters
     ----------
-        func : Callable[[Instance, Profile, Project], Numeric]
+        func : Callable[[Collection[Project], Profile, Project], Numeric]
             A function taking as input an instance, a profile and a project and returning the value on which the
             project will be sorted.
 
     Attributes
     ----------
-        func : Callable[[Instance, Profile, Project], Numeric]
+        func : Callable[[Collection[Project], Profile, Project], Numeric]
             A function taking as input an instance, a profile and a project and returning the value on which the
             project will be sorted.
     """
 
-    def __init__(self, func: Callable[[Instance, AbstractProfile, Project], Numeric]):
+    def __init__(self, func: Callable[[Collection[Project], AbstractProfile, Project], Numeric]):
         self.func = func
 
     def order(
         self,
-        instance: Instance,
+        instance: Collection[Project],
         profile: AbstractProfile,
         projects: Collection[Project],
         key: Callable[..., Project] | None = None,
@@ -72,7 +72,7 @@ class TieBreakingRule:
 
     def untie(
         self,
-        instance: Instance,
+        instance: Collection[Project],
         profile: AbstractProfile,
         projects: Collection[Project],
         key: Callable[..., Project] | None = None,

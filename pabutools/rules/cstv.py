@@ -9,7 +9,6 @@ Date: 2024/05/16.
 from __future__ import annotations
 
 import copy
-import logging
 from collections.abc import Callable, Collection, Iterable
 from enum import Enum
 
@@ -17,7 +16,6 @@ import numpy as np
 
 from pabutools.election import (
     Project,
-    CumulativeBallot,
     Instance,
     AbstractCumulativeProfile,
 )
@@ -25,7 +23,6 @@ from pabutools.rules.budgetallocation import BudgetAllocation
 from pabutools.tiebreaking import TieBreakingRule, lexico_tie_breaking
 from pabutools.utils import Numeric
 
-logger = logging.getLogger(__name__)
 
 ###################################################################
 #                                                                 #
@@ -173,6 +170,7 @@ def cstv(
         for ballot in profile
     ]
 
+    current_projects = set(instance)
     # Loop until a halting condition is met
     while True:
         # Calculate the total budget
@@ -181,7 +179,7 @@ def cstv(
             print(f"Budget is: {budget}")
 
         # Halting condition: if there are no more projects to consider
-        if not instance:
+        if not current_projects:
             # Perform the inclusive maximality postprocedure
             exhaustiveness_postprocess_func(
                 selected_projects,
@@ -197,14 +195,14 @@ def cstv(
 
         # Log donations for each project
         if verbose:
-            for project in instance:
+            for project in current_projects:
                 donations = sum(ballot[project] for ballot in donations)
                 print(
                     f"Donors and total donations for {project}: {donations}. Price: {project.cost}"
                 )
 
         # Determine eligible projects for funding
-        eligible_projects = eligible_projects_func(instance, donations)
+        eligible_projects = eligible_projects_func(current_projects, donations)
         if verbose:
             print(
                 f"Eligible projects: {eligible_projects}",
@@ -213,10 +211,11 @@ def cstv(
         # If no eligible projects, execute the no-eligible-project procedure
         while not eligible_projects:
             flag = no_eligible_project_func(
-                instance,
+                current_projects,
                 donations,
                 eliminated_projects,
                 select_project_to_fund_func,
+                tie_breaking
             )
             if not flag:
                 # Perform the inclusive maximality postprocedure
@@ -231,14 +230,14 @@ def cstv(
                 if verbose:
                     print(f"Final selected projects: {selected_projects}")
                 return selected_projects
-            eligible_projects = eligible_projects_func(instance, donations)
+            eligible_projects = eligible_projects_func(current_projects, donations)
 
         # Choose one project to fund according to the project-to-fund selection procedure
         tied_projects = select_project_to_fund_func(
-            eligible_projects, donations, tie_breaking
+            eligible_projects, donations
         )
         if len(tied_projects) > 1:
-            p = tie_breaking.untie(instance, profile, tied_projects)
+            p = tie_breaking.untie(current_projects, profile, tied_projects)
         else:
             p = tied_projects[0]
         excess_support = sum(donor.get(p.name, 0) for donor in donations) - p.cost
@@ -253,13 +252,14 @@ def cstv(
                 excess_redistribution_procedure(donations, p, gama)
             else:
                 # Reset donations for the eliminated project
-                print(f"Resetting donations for eliminated project: {p}")
+                if verbose:
+                    print(f"Resetting donations for eliminated project: {p}")
                 for donor in donations:
                     donor[p] = 0
 
             # Add the project to the selected set and remove it from further consideration
             selected_projects.append(p)
-            instance.remove(p)
+            current_projects.remove(p)
             if verbose:
                 print(f"Updated selected projects: {selected_projects}")
             budget -= p.cost
@@ -294,7 +294,6 @@ def excess_redistribution_procedure(
     -------
         None
     """
-    logger.debug(f"Distributing excess support of selected project: {selected_project}")
     for donor in donors:
         donor_copy = donor.copy()
         to_distribute = donor_copy[selected_project] * (1 - gama)
@@ -326,15 +325,6 @@ def is_eligible_ge(
     -------
         list[Project]
             The list of eligible projects.
-
-    Examples
-    --------
-    >>> project_A = Project("Project A", 35)
-    >>> project_B = Project("Project B", 30)
-    >>> donor1 = CumulativeBallot({project_A: 5, project_B: 30})
-    >>> donor2 = CumulativeBallot({project_A: 10, project_B: 0})
-    >>> is_eligible_ge([project_A, project_B], [donor1, donor2])
-    [Project B]
     """
     return [
         project
@@ -360,15 +350,6 @@ def is_eligible_gsc(
     -------
         list[Project]
             The list of eligible projects.
-
-    Examples
-    --------
-    >>> project_A = Project("Project A", 35)
-    >>> project_B = Project("Project B", 30)
-    >>> donor1 = CumulativeBallot({project_A: 5, project_B: 10})
-    >>> donor2 = CumulativeBallot({project_A: 30, project_B: 0})
-    >>> is_eligible_gsc([project_A, project_B], [donor1, donor2])
-    [Project A]
     """
     return [
         project
@@ -380,7 +361,6 @@ def is_eligible_gsc(
 def select_project_ge(
     projects: Iterable[Project],
     donors: list[dict[Project, Numeric]],
-    during_postprocess: bool = False,
 ) -> list[Project]:
     """
     Selects the project with the maximum excess support using the General Election (GE) rule.
@@ -391,22 +371,11 @@ def select_project_ge(
             The list of projects.
         donors : list[dict[Project, Numeric]]
             The list of donor ballots.
-        during_postprocess : bool, optional
-            Flag indicating if this selection is part of the inclusive maximality postprocedure.
 
     Returns
     -------
         list[Project]
             The tied selected projects.
-
-    Examples
-    --------
-    >>> project_A = Project("Project A", 36)
-    >>> project_B = Project("Project B", 30)
-    >>> donor1 = CumulativeBallot({project_A: 5, project_B: 10})
-    >>> donor2 = CumulativeBallot({project_A: 10, project_B: 0})
-    >>> select_project_ge(Instance([project_A, project_B]), [donor1, donor2])[0].name
-    'Project B'
     """
     excess_support = {
         project: sum(donor.get(project, 0) for donor in donors) - project.cost
@@ -418,22 +387,12 @@ def select_project_ge(
         for project, excess in excess_support.items()
         if excess == max_excess_value
     ]
-
-    if during_postprocess:
-        logger.debug(
-            f"Selected project by GE method in inclusive maximality postprocedure: "
-            f"{max_excess_projects}"
-        )
-    else:
-        logger.debug(f"Selected project by GE method: {max_excess_projects}")
-
     return max_excess_projects
 
 
 def select_project_gsc(
     projects: Iterable[Project],
     donors: list[dict[Project, Numeric]],
-    during_postprocess: bool = False,
 ) -> list[Project]:
     """
     Selects the project with the maximum excess support using the General Election (GSC) rule.
@@ -444,22 +403,11 @@ def select_project_gsc(
             The list of projects.
         donors : list[dict[Project, Numeric]]
             The list of donor ballots.
-        during_postprocess : bool, optional
-            Flag indicating if this selection is part of the inclusive maximality postprocedure.
 
     Returns
     -------
         list[Project]
             The tied selected projects.
-
-    Examples
-    --------
-    >>> project_A = Project("Project A", 36)
-    >>> project_B = Project("Project B", 30)
-    >>> donor1 = CumulativeBallot({project_A: 5, project_B: 10})
-    >>> donor2 = CumulativeBallot({project_A: 10, project_B: 0})
-    >>> select_project_gsc(Instance([project_A, project_B]), [donor1, donor2])[0].name
-    Project A
     """
     excess_support = {
         project: sum(donor.get(project, 0) for donor in donors) / project.cost
@@ -471,15 +419,6 @@ def select_project_gsc(
         for project, excess in excess_support.items()
         if excess == max_excess_value
     ]
-
-    if during_postprocess:
-        logger.debug(
-            f"Selected project by GSC method in inclusive maximality postprocedure: "
-            f"{max_excess_projects}"
-        )
-    else:
-        logger.debug(f"Selected project by GSC method: {max_excess_projects}")
-
     return max_excess_projects
 
 
@@ -488,6 +427,7 @@ def elimination_with_transfers(
     donors: list[dict[Project, Numeric]],
     eliminated_projects: set[Project],
     project_to_fund_selection_procedure: Callable,
+    tie_breaking: TieBreakingRule,
 ) -> bool:
     """
     Eliminates the project with the least excess support and redistributes its support to the
@@ -500,34 +440,16 @@ def elimination_with_transfers(
         donors : list[dict[Project, Numeric]]
             The list of donor ballots.
         eliminated_projects : set[Project]
-            The set of eliminated projects.
+            The set of eliminated projects
+        project_to_fund_selection_procedure : callable
+            The procedure to select a project for funding, not used in this function.
+        tie_breaking : TieBreakingRule, optional
+            The tie-breaking rule to use, defaults to lexico_tie_breaking.
 
     Returns
     -------
         bool
             True if the elimination with transfers was successful, False otherwise.
-
-    Examples
-    --------
-    >>> project_A = Project("Project A", 30)
-    >>> project_B = Project("Project B", 30)
-    >>> project_C = Project("Project C", 20)
-    >>> donor1 = CumulativeBallot({project_A: 5, project_B: 10, project_C: 5})
-    >>> donor2 = CumulativeBallot({project_A: 10, project_B: 0, project_C: 5})
-    >>> elimination_with_transfers([project_A, project_B, project_C], [donor1, donor2], [], None)
-    True
-    >>> print(donor1[project_A])
-    10.0
-    >>> print(donor1[project_B])
-    0
-    >>> print(donor2[project_A])
-    10.0
-    >>> print(donor2[project_B])
-    0
-    >>> print(donor1[project_C])
-    10.0
-    >>> print(donor2[project_C])
-    5.0
     """
 
     def distribute_project_support(
@@ -537,9 +459,6 @@ def elimination_with_transfers(
         """
         Distributes the support of an eliminated project to the remaining projects.
         """
-        logger.debug(
-            f"Distributing support of eliminated project: {eliminated_project}"
-        )
         for donor in all_donors:
             to_distribute = donor[eliminated_project]
             total = sum(donor.values()) - to_distribute
@@ -552,14 +471,12 @@ def elimination_with_transfers(
             donor[eliminated_project] = 0
 
     if len(projects) < 2:
-        logger.debug("Not enough projects to eliminate.")
         if len(projects) == 1:
             eliminated_projects.add(projects.pop())
         return False
     min_project = min(
         projects, key=lambda p: sum(donor.get(p.name, 0) for donor in donors) - p.cost
     )
-    logger.debug(f"Eliminating project with least excess support: {min_project.name}")
     distribute_project_support(donors, min_project)
     projects.remove(min_project)
     eliminated_projects.add(min_project)
@@ -578,39 +495,23 @@ def minimal_transfer(
 
     Parameters
     ----------
-    projects : Iterable[Project]
-        The list of projects.
-    donors : list[dict[Project, Numeric]]
-        The list of donor ballots.
-    eliminated_projects : set[Project]
-        The list of eliminated projects.
-    project_to_fund_selection_procedure : callable
-        The procedure to select a project for funding.
-    tie_breaking : TieBreakingRule, optional
-        The tie-breaking rule to use, defaults to lexico_tie_breaking.
+        projects : Iterable[Project]
+            The list of projects.
+        donors : list[dict[Project, Numeric]]
+            The list of donor ballots.
+        eliminated_projects : set[Project]
+            The list of eliminated projects.
+        project_to_fund_selection_procedure : callable
+            The procedure to select a project for funding.
+        tie_breaking : TieBreakingRule, optional
+            The tie-breaking rule to use, defaults to lexico_tie_breaking.
 
     Returns
     -------
-    bool
-        True if the minimal transfer was successful, False if the project was added to
-        eliminated_projects.
+        bool
+            True if the minimal transfer was successful, False if the project was added to
+            eliminated_projects.
 
-    Examples
-    --------
-    >>> project_A = Project("Project A", 40)
-    >>> project_B = Project("Project B", 30)
-    >>> donor1 = CumulativeBallot({project_A: 5, project_B: 10})
-    >>> donor2 = CumulativeBallot({project_A: 30, project_B: 0})
-    >>> minimal_transfer(project_A, project_B], [donor1, donor2], [], select_project_ge)
-    True
-    >>> print(donor1[project_A])
-    9.999999999999996
-    >>> print(donor1[project_B])
-    5.000000000000034
-    >>> print(donor2[project_A])
-    30
-    >>> print(donor2[project_B])
-    0
     """
     projects_with_chance = []
     for project in projects:
@@ -632,7 +533,6 @@ def minimal_transfer(
     donors_of_selected_project = [
         i for i, donor in enumerate(donors) if donor.get(chosen_project.name, 0) > 0
     ]
-    logger.debug(f"Selected project for minimal transfer: {chosen_project.name}")
 
     project_cost = chosen_project.cost
 
@@ -679,26 +579,31 @@ def reverse_eliminations(
     donors: list[dict[Project, Numeric]],
     eliminated_projects: set[Project],
     project_to_fund_selection_procedure: Callable,
-    budget: int,
+    budget: Numeric,
     tie_breaking: TieBreakingRule = lexico_tie_breaking,
 ) -> None:
     """
-    Reverses eliminations of projects if the budget allows.
+    Reverses elimination of projects if the budget allows.
 
     Parameters
     ----------
         selected_projects : BudgetAllocation
             The list of selected projects.
+        donors : list[dict[Project, Numeric]]
+            The list of donor ballots, not used in this function.
         eliminated_projects : Instance
             The list of eliminated projects.
-        budget : int
+        project_to_fund_selection_procedure : callable
+            The procedure to select a project for funding, not used in this function.
+        budget : Numeric
             The remaining budget.
+        tie_breaking : TieBreakingRule, optional
+            The tie-breaking rule to use, defaults to lexico_tie_breaking.
 
     Returns
     -------
         None
     """
-    logger.debug("Performing inclusive maximality postprocedure RE")
     for project in eliminated_projects:
         if project.cost <= budget:
             selected_projects.append(project)
@@ -714,7 +619,7 @@ def acceptance_of_under_supported_projects(
     tie_breaking: TieBreakingRule = lexico_tie_breaking,
 ) -> None:
     """
-    Accepts undersupported projects if the budget allows.
+    Accepts under-supported projects if the budget allows.
 
     Parameters
     ----------
@@ -734,18 +639,7 @@ def acceptance_of_under_supported_projects(
     Returns
     -------
         None
-
-    Examples
-    --------
-    >>> project_A = Project("Project A", 35)
-    >>> project_B = Project("Project B", 30)
-    >>> project_C = Project("Project C", 20)
-    >>> S = Instance([project_A])
-    >>> eliminated_projects = Instance([project_B, project_C])
-    >>> sorted(acceptance_of_under_supported_projects(S, Profile([]), eliminated_projects, select_project_ge, 25, lexico_tie_breaking))
-    [Project A, Project C]
     """
-    logger.debug("Performing inclusive maximality postprocedure: AUP")
     while len(eliminated_projects) != 0:
         selected_project = project_to_fund_selection_procedure(
             eliminated_projects, donors, tie_breaking, True
