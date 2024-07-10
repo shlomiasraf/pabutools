@@ -1,0 +1,1019 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pabutools.rules.cstv &#8212; Pabutools</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script src="../../../_static/documentation_options.js?v=d8c5a152"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pabutools/rules/cstv';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Pabutools</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Pabutools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../usage/index.html">Complete Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/instances.html">Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/libraries.html">Preference Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/satisfaction.html">Satisfaction Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/rules.html">Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/outcomevisualisation.html">Outcome Visualisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/tiebreaking.html">Tie-Breaking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/fractions.html">Fractions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/election/index.html">Election module</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/election/instance.html">Instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/election/ballot.html">Ballot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/election/profile.html">Profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/election/satisfaction.html">Satisfaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/election/libraries.html">Preference Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/rules/index.html">Rules module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/analysis/index.html">Analysis module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/visualisation/index.html">Visualisation Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/tiebreaking.html">Tie-Breaking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/fractions.html">Fractions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/utils.html">Utils</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/pbvoting/pabutools" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for pabutools.rules.cstv</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">An implementation of the algorithms in:</span>
+<span class="sd">&quot;Participatory Budgeting with Cumulative Votes&quot;, by Piotr Skowron, Arkadii Slinko, Stanisaw Szufa,</span>
+<span class="sd">Nimrod Talmon (2020), https://arxiv.org/pdf/2009.02690</span>
+<span class="sd">Programmer: Achiya Ben Natan</span>
+<span class="sd">Date: 2024/05/16.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">pabutools.election</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Project</span><span class="p">,</span>
+    <span class="n">Instance</span><span class="p">,</span>
+    <span class="n">AbstractCumulativeProfile</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pabutools.rules.budgetallocation</span> <span class="kn">import</span> <span class="n">BudgetAllocation</span>
+<span class="kn">from</span> <span class="nn">pabutools.tiebreaking</span> <span class="kn">import</span> <span class="n">TieBreakingRule</span><span class="p">,</span> <span class="n">lexico_tie_breaking</span>
+<span class="kn">from</span> <span class="nn">pabutools.utils</span> <span class="kn">import</span> <span class="n">Numeric</span>
+
+
+<span class="c1">###################################################################</span>
+<span class="c1">#                                                                 #</span>
+<span class="c1">#                     Main algorithm                              #</span>
+<span class="c1">#                                                                 #</span>
+<span class="c1">###################################################################</span>
+
+
+<div class="viewcode-block" id="CSTV_Combination">
+<a class="viewcode-back" href="../../../reference/rules/index.html#pabutools.rules.cstv.CSTV_Combination">[docs]</a>
+<span class="k">class</span> <span class="nc">CSTV_Combination</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">EWT</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Project selection via greedy-by-excess; eligible projects selected via greedy-by-excess;</span>
+<span class="sd">    elimination with transfer used if no eligible projects; and reverse elimination as post-processing method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">EWTC</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Project selection via greedy-by-support-over-cost; eligible projects selected via greedy-by-support-over-cost;</span>
+<span class="sd">    elimination with transfer used if no eligible projects; and reverse elimination as post-processing method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">MT</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Project selection via greedy-by-excess; eligible projects selected via greedy-by-excess;</span>
+<span class="sd">    minimal transfer used if no eligible projects; and acceptance of under-supported projects as post-processing method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">MTC</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Project selection via greedy-by-support-over-cost; eligible projects selected via greedy-by-support-over-cost</span>
+<span class="sd">    minimal transfer used if no eligible projects; and acceptance of under-supported projects as post-processing method.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="cstv">
+<a class="viewcode-back" href="../../../reference/rules/index.html#pabutools.rules.cstv.cstv">[docs]</a>
+<span class="k">def</span> <span class="nf">cstv</span><span class="p">(</span>
+    <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
+    <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractCumulativeProfile</span><span class="p">,</span>
+    <span class="n">combination</span><span class="p">:</span> <span class="n">CSTV_Combination</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">select_project_to_fund_func</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">eligible_projects_func</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">no_eligible_project_func</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exhaustiveness_postprocess_func</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">initial_budget_allocation</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">Project</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tie_breaking</span><span class="p">:</span> <span class="n">TieBreakingRule</span> <span class="o">=</span> <span class="n">lexico_tie_breaking</span><span class="p">,</span>
+    <span class="n">resoluteness</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BudgetAllocation</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">BudgetAllocation</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The CSTV (Cumulative Support Transfer Voting) budgeting algorithm determines project funding</span>
+<span class="sd">    based on cumulative support from donor ballots.</span>
+<span class="sd">    This function evaluates a list of projects and donor profiles, selecting projects for funding</span>
+<span class="sd">    according to the CSTV methodology.</span>
+<span class="sd">    It employs various procedures for project selection, eligibility determination, and handling of</span>
+<span class="sd">    scenarios where no eligible projects exist or to ensure inclusive maximality.</span>
+<span class="sd">    You can read more about the algorithm in sections 4 and 5 in the paper here:</span>
+<span class="sd">    https://arxiv.org/pdf/2009.02690 in sections 4 and 5.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        instance : Instance</span>
+<span class="sd">            The list of projects.</span>
+<span class="sd">        profile : AbstractCumulativeProfile</span>
+<span class="sd">            The list of donor ballots.</span>
+<span class="sd">        combination: CSTV_Combination</span>
+<span class="sd">            Shortcut to use pre-defined sets of parameters (all the different procedures).</span>
+<span class="sd">        select_project_to_fund_func : callable</span>
+<span class="sd">            The procedure to select a project for funding.</span>
+<span class="sd">        eligible_projects_func : callable</span>
+<span class="sd">            The function to determine eligible projects.</span>
+<span class="sd">        no_eligible_project_func : callable</span>
+<span class="sd">            The procedure when there are no eligible projects.</span>
+<span class="sd">        exhaustiveness_postprocess_func : callable</span>
+<span class="sd">            The post procedure to handle inclusive maximality.</span>
+<span class="sd">        initial_budget_allocation : Iterable[:py:class:`~pabutools.election.instance.Project`]</span>
+<span class="sd">            An initial budget allocation, typically empty.</span>
+<span class="sd">        tie_breaking : TieBreakingRule, optional</span>
+<span class="sd">            The tie-breaking rule to use, defaults to lexico_tie_breaking.</span>
+<span class="sd">        resoluteness : bool, optional</span>
+<span class="sd">            Set to `False` to obtain an irresolute outcome, where all tied budget allocations are</span>
+<span class="sd">            returned. Defaults to True.</span>
+<span class="sd">        verbose : bool, optional</span>
+<span class="sd">            (De)Activate the display of additional information.</span>
+<span class="sd">            Defaults to `False`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        BudgetAllocation</span>
+<span class="sd">            The list of selected projects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">combination</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">combination</span> <span class="o">==</span> <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">EWT</span><span class="p">:</span>
+            <span class="n">select_project_to_fund_func</span> <span class="o">=</span> <span class="n">select_project_ge</span>
+            <span class="n">eligible_projects_func</span> <span class="o">=</span> <span class="n">is_eligible_ge</span>
+            <span class="n">no_eligible_project_func</span> <span class="o">=</span> <span class="n">elimination_with_transfers</span>
+            <span class="n">exhaustiveness_postprocess_func</span> <span class="o">=</span> <span class="n">reverse_eliminations</span>
+        <span class="k">elif</span> <span class="n">combination</span> <span class="o">==</span> <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">EWTC</span><span class="p">:</span>
+            <span class="n">select_project_to_fund_func</span> <span class="o">=</span> <span class="n">select_project_gsc</span>
+            <span class="n">eligible_projects_func</span> <span class="o">=</span> <span class="n">is_eligible_gsc</span>
+            <span class="n">no_eligible_project_func</span> <span class="o">=</span> <span class="n">elimination_with_transfers</span>
+            <span class="n">exhaustiveness_postprocess_func</span> <span class="o">=</span> <span class="n">reverse_eliminations</span>
+        <span class="k">elif</span> <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">MT</span><span class="p">:</span>
+            <span class="n">select_project_to_fund_func</span> <span class="o">=</span> <span class="n">select_project_ge</span>
+            <span class="n">eligible_projects_func</span> <span class="o">=</span> <span class="n">is_eligible_ge</span>
+            <span class="n">no_eligible_project_func</span> <span class="o">=</span> <span class="n">minimal_transfer</span>
+            <span class="n">exhaustiveness_postprocess_func</span> <span class="o">=</span> <span class="n">acceptance_of_under_supported_projects</span>
+        <span class="k">elif</span> <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">MTC</span><span class="p">:</span>
+            <span class="n">select_project_to_fund_func</span> <span class="o">=</span> <span class="n">select_project_gsc</span>
+            <span class="n">eligible_projects_func</span> <span class="o">=</span> <span class="n">is_eligible_gsc</span>
+            <span class="n">no_eligible_project_func</span> <span class="o">=</span> <span class="n">minimal_transfer</span>
+            <span class="n">exhaustiveness_postprocess_func</span> <span class="o">=</span> <span class="n">acceptance_of_under_supported_projects</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid combination </span><span class="si">{</span><span class="n">combination</span><span class="si">}</span><span class="s2">. Please select an element of the &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;CSTV_Combination enumeration.&quot;</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">select_project_to_fund_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;If no combination is passed, the select_project_to_fund_func &quot;</span>
+                <span class="s2">&quot;argument needs to be used&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">eligible_projects_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;If no combination is passed, the eligible_projects_func &quot;</span>
+                <span class="s2">&quot;argument needs to be used&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">no_eligible_project_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;If no combination is passed, the no_eligible_project_func &quot;</span>
+                <span class="s2">&quot;argument needs to be used&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">exhaustiveness_postprocess_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;If no combination is passed, the exhaustiveness_postprocess_func &quot;</span>
+                <span class="s2">&quot;argument needs to be used&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">resoluteness</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s1">&#39;The &quot;resoluteness = False&quot; feature is not yet implemented&#39;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Check if all donors donate the same amount</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">profile</span><span class="p">]))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Not all donors donate the same amount. Change the donations and try again.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">tie_breaking</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tie_breaking</span> <span class="o">=</span> <span class="n">lexico_tie_breaking</span>
+    <span class="k">if</span> <span class="n">initial_budget_allocation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">initial_budget_allocation</span> <span class="o">=</span> <span class="n">BudgetAllocation</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">initial_budget_allocation</span> <span class="o">=</span> <span class="n">BudgetAllocation</span><span class="p">(</span><span class="n">initial_budget_allocation</span><span class="p">)</span>
+
+    <span class="c1"># Initialize the set of selected projects and eliminated projects</span>
+    <span class="n">selected_projects</span> <span class="o">=</span> <span class="n">initial_budget_allocation</span>
+    <span class="n">eliminated_projects</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1"># The donations to avoid to mutate the profile passed as argument</span>
+    <span class="n">donations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">ballot</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">profile</span><span class="o">.</span><span class="n">multiplicity</span><span class="p">(</span><span class="n">ballot</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">instance</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">ballot</span> <span class="ow">in</span> <span class="n">profile</span>
+    <span class="p">]</span>
+
+    <span class="n">current_projects</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+    <span class="c1"># Loop until a halting condition is met</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Calculate the total budget</span>
+        <span class="n">budget</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donations</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Budget is: </span><span class="si">{</span><span class="n">budget</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Halting condition: if there are no more projects to consider</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">current_projects</span><span class="p">:</span>
+            <span class="c1"># Perform the inclusive maximality postprocedure</span>
+            <span class="n">exhaustiveness_postprocess_func</span><span class="p">(</span>
+                <span class="n">selected_projects</span><span class="p">,</span>
+                <span class="n">donations</span><span class="p">,</span>
+                <span class="n">eliminated_projects</span><span class="p">,</span>
+                <span class="n">select_project_to_fund_func</span><span class="p">,</span>
+                <span class="n">budget</span><span class="p">,</span>
+                <span class="n">tie_breaking</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final selected projects: </span><span class="si">{</span><span class="n">selected_projects</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">selected_projects</span>
+
+        <span class="c1"># Log donations for each project</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">current_projects</span><span class="p">:</span>
+                <span class="n">total_donation</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="p">[</span><span class="n">project</span><span class="p">]</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donations</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Donors and total donations for </span><span class="si">{</span><span class="n">project</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">total_donation</span><span class="si">}</span><span class="s2">. Price: </span><span class="si">{</span><span class="n">project</span><span class="o">.</span><span class="n">cost</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Determine eligible projects for funding</span>
+        <span class="n">eligible_projects</span> <span class="o">=</span> <span class="n">eligible_projects_func</span><span class="p">(</span><span class="n">current_projects</span><span class="p">,</span> <span class="n">donations</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Eligible projects: </span><span class="si">{</span><span class="n">eligible_projects</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># If no eligible projects, execute the no-eligible-project procedure</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">eligible_projects</span><span class="p">:</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="n">no_eligible_project_func</span><span class="p">(</span>
+                <span class="n">current_projects</span><span class="p">,</span>
+                <span class="n">donations</span><span class="p">,</span>
+                <span class="n">eliminated_projects</span><span class="p">,</span>
+                <span class="n">select_project_to_fund_func</span><span class="p">,</span>
+                <span class="n">tie_breaking</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">flag</span><span class="p">:</span>
+                <span class="c1"># Perform the inclusive maximality postprocedure</span>
+                <span class="n">exhaustiveness_postprocess_func</span><span class="p">(</span>
+                    <span class="n">selected_projects</span><span class="p">,</span>
+                    <span class="n">donations</span><span class="p">,</span>
+                    <span class="n">eliminated_projects</span><span class="p">,</span>
+                    <span class="n">select_project_to_fund_func</span><span class="p">,</span>
+                    <span class="n">budget</span><span class="p">,</span>
+                    <span class="n">tie_breaking</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final selected projects: </span><span class="si">{</span><span class="n">selected_projects</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">selected_projects</span>
+            <span class="n">eligible_projects</span> <span class="o">=</span> <span class="n">eligible_projects_func</span><span class="p">(</span><span class="n">current_projects</span><span class="p">,</span> <span class="n">donations</span><span class="p">)</span>
+
+        <span class="c1"># Choose one project to fund according to the project-to-fund selection procedure</span>
+        <span class="n">tied_projects</span> <span class="o">=</span> <span class="n">select_project_to_fund_func</span><span class="p">(</span>
+            <span class="n">eligible_projects</span><span class="p">,</span> <span class="n">donations</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tied_projects</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">tie_breaking</span><span class="o">.</span><span class="n">untie</span><span class="p">(</span><span class="n">current_projects</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">tied_projects</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">tied_projects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">excess_support</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donations</span><span class="p">)</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">cost</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Excess support for </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">excess_support</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If the project has enough or excess support</span>
+        <span class="k">if</span> <span class="n">excess_support</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">excess_support</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>
+                <span class="c1"># Perform the excess redistribution procedure</span>
+                <span class="n">gama</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">cost</span> <span class="o">/</span> <span class="p">(</span><span class="n">excess_support</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span>
+                <span class="n">excess_redistribution_procedure</span><span class="p">(</span><span class="n">donations</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">gama</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Reset donations for the eliminated project</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resetting donations for eliminated project: </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donations</span><span class="p">:</span>
+                    <span class="n">donor</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Add the project to the selected set and remove it from further consideration</span>
+            <span class="n">selected_projects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">current_projects</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Updated selected projects: </span><span class="si">{</span><span class="n">selected_projects</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">budget</span> <span class="o">-=</span> <span class="n">p</span><span class="o">.</span><span class="n">cost</span>
+            <span class="k">continue</span></div>
+
+
+
+<span class="c1">###################################################################</span>
+<span class="c1">#                                                                 #</span>
+<span class="c1">#                     Help functions                              #</span>
+<span class="c1">#                                                                 #</span>
+<span class="c1">###################################################################</span>
+
+
+<span class="k">def</span> <span class="nf">excess_redistribution_procedure</span><span class="p">(</span>
+    <span class="n">donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]],</span>
+    <span class="n">selected_project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
+    <span class="n">gama</span><span class="p">:</span> <span class="n">Numeric</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Distributes the excess support of a selected project to the remaining projects.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        donors : list[dict[Project, Numeric]]</span>
+<span class="sd">            The list of donors.</span>
+<span class="sd">        selected_project : Project</span>
+<span class="sd">            The project with the maximum excess support.</span>
+<span class="sd">        gama : Numeric</span>
+<span class="sd">            The proportion to distribute.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">:</span>
+        <span class="n">donor_copy</span> <span class="o">=</span> <span class="n">donor</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">to_distribute</span> <span class="o">=</span> <span class="n">donor_copy</span><span class="p">[</span><span class="n">selected_project</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">gama</span><span class="p">)</span>
+        <span class="n">donor</span><span class="p">[</span><span class="n">selected_project</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_distribute</span>
+        <span class="n">donor_copy</span><span class="p">[</span><span class="n">selected_project</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor_copy</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">donation</span> <span class="ow">in</span> <span class="n">donor_copy</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">donation</span> <span class="o">!=</span> <span class="n">selected_project</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">total</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">part</span> <span class="o">=</span> <span class="n">donation</span> <span class="o">/</span> <span class="n">total</span>
+                    <span class="n">donor</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">donation</span> <span class="o">+</span> <span class="n">to_distribute</span> <span class="o">*</span> <span class="n">part</span>
+                <span class="n">donor</span><span class="p">[</span><span class="n">selected_project</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+<span class="k">def</span> <span class="nf">is_eligible_ge</span><span class="p">(</span>
+    <span class="n">projects</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span> <span class="n">donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Project</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determines the eligible projects based on the General Election (GE) rule.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        projects : Iterable[Project]</span>
+<span class="sd">            The list of projects.</span>
+<span class="sd">        donors : list[dict[Project, Numeric]]</span>
+<span class="sd">            The list of donor ballots.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        list[Project]</span>
+<span class="sd">            The list of eligible projects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">project</span>
+        <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span> <span class="o">-</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">is_eligible_gsc</span><span class="p">(</span>
+    <span class="n">projects</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span> <span class="n">donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Project</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determines the eligible projects based on the Greatest Support to Cost (GSC) rule.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        projects : Iterable[Project]</span>
+<span class="sd">            The list of projects.</span>
+<span class="sd">        donors : list[dict[Project, Numeric]]</span>
+<span class="sd">            The list of donor ballots.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        list[Project]</span>
+<span class="sd">            The list of eligible projects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">project</span>
+        <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span> <span class="o">/</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+    <span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">select_project_ge</span><span class="p">(</span>
+    <span class="n">projects</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
+    <span class="n">donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Project</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Selects the project with the maximum excess support using the General Election (GE) rule.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        projects : Iterable[Project]</span>
+<span class="sd">            The list of projects.</span>
+<span class="sd">        donors : list[dict[Project, Numeric]]</span>
+<span class="sd">            The list of donor ballots.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        list[Project]</span>
+<span class="sd">            The tied selected projects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">excess_support</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">project</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span> <span class="o">-</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span>
+        <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span>
+    <span class="p">}</span>
+    <span class="n">max_excess_value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">excess_support</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">max_excess_projects</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">project</span>
+        <span class="k">for</span> <span class="n">project</span><span class="p">,</span> <span class="n">excess</span> <span class="ow">in</span> <span class="n">excess_support</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">excess</span> <span class="o">==</span> <span class="n">max_excess_value</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">max_excess_projects</span>
+
+
+<span class="k">def</span> <span class="nf">select_project_gsc</span><span class="p">(</span>
+    <span class="n">projects</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
+    <span class="n">donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Project</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Selects the project with the maximum excess support using the General Election (GSC) rule.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        projects : Instance</span>
+<span class="sd">            The list of projects.</span>
+<span class="sd">        donors : list[dict[Project, Numeric]]</span>
+<span class="sd">            The list of donor ballots.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        list[Project]</span>
+<span class="sd">            The tied selected projects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">excess_support</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">project</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span> <span class="o">/</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span>
+        <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span>
+    <span class="p">}</span>
+    <span class="n">max_excess_value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">excess_support</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">max_excess_projects</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">project</span>
+        <span class="k">for</span> <span class="n">project</span><span class="p">,</span> <span class="n">excess</span> <span class="ow">in</span> <span class="n">excess_support</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">excess</span> <span class="o">==</span> <span class="n">max_excess_value</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">max_excess_projects</span>
+
+
+<span class="k">def</span> <span class="nf">elimination_with_transfers</span><span class="p">(</span>
+    <span class="n">projects</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
+    <span class="n">donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]],</span>
+    <span class="n">eliminated_projects</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
+    <span class="n">project_to_fund_selection_procedure</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">tie_breaking</span><span class="p">:</span> <span class="n">TieBreakingRule</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eliminates the project with the least excess support and redistributes its support to the</span>
+<span class="sd">    remaining projects.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        projects : list[Project]</span>
+<span class="sd">            The list of projects.</span>
+<span class="sd">        donors : list[dict[Project, Numeric]]</span>
+<span class="sd">            The list of donor ballots.</span>
+<span class="sd">        eliminated_projects : set[Project]</span>
+<span class="sd">            The set of eliminated projects</span>
+<span class="sd">        project_to_fund_selection_procedure : callable</span>
+<span class="sd">            The procedure to select a project for funding, not used in this function.</span>
+<span class="sd">        tie_breaking : TieBreakingRule, optional</span>
+<span class="sd">            The tie-breaking rule to use, defaults to lexico_tie_breaking.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the elimination with transfers was successful, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">distribute_project_support</span><span class="p">(</span>
+        <span class="n">all_donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]],</span>
+        <span class="n">eliminated_project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Distributes the support of an eliminated project to the remaining projects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">all_donors</span><span class="p">:</span>
+            <span class="n">to_distribute</span> <span class="o">=</span> <span class="n">donor</span><span class="p">[</span><span class="n">eliminated_project</span><span class="p">]</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">-</span> <span class="n">to_distribute</span>
+            <span class="k">if</span> <span class="n">total</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">donation</span> <span class="ow">in</span> <span class="n">donor</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="n">eliminated_project</span><span class="p">:</span>
+                    <span class="n">part</span> <span class="o">=</span> <span class="n">donation</span> <span class="o">/</span> <span class="n">total</span>
+                    <span class="n">donor</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">donation</span> <span class="o">+</span> <span class="n">to_distribute</span> <span class="o">*</span> <span class="n">part</span>
+            <span class="n">donor</span><span class="p">[</span><span class="n">eliminated_project</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">projects</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">projects</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">eliminated_projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">projects</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">min_project</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+        <span class="n">projects</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">cost</span>
+    <span class="p">)</span>
+    <span class="n">distribute_project_support</span><span class="p">(</span><span class="n">donors</span><span class="p">,</span> <span class="n">min_project</span><span class="p">)</span>
+    <span class="n">projects</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">min_project</span><span class="p">)</span>
+    <span class="n">eliminated_projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">min_project</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="k">def</span> <span class="nf">minimal_transfer</span><span class="p">(</span>
+    <span class="n">projects</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
+    <span class="n">donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]],</span>
+    <span class="n">eliminated_projects</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
+    <span class="n">project_to_fund_selection_procedure</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">tie_breaking</span><span class="p">:</span> <span class="n">TieBreakingRule</span> <span class="o">=</span> <span class="n">lexico_tie_breaking</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs minimal transfer of donations to reach the required support for a selected project.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        projects : Iterable[Project]</span>
+<span class="sd">            The list of projects.</span>
+<span class="sd">        donors : list[dict[Project, Numeric]]</span>
+<span class="sd">            The list of donor ballots.</span>
+<span class="sd">        eliminated_projects : set[Project]</span>
+<span class="sd">            The list of eliminated projects.</span>
+<span class="sd">        project_to_fund_selection_procedure : callable</span>
+<span class="sd">            The procedure to select a project for funding.</span>
+<span class="sd">        tie_breaking : TieBreakingRule, optional</span>
+<span class="sd">            The tie-breaking rule to use, defaults to lexico_tie_breaking.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the minimal transfer was successful, False if the project was added to</span>
+<span class="sd">            eliminated_projects.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">projects_with_chance</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">:</span>
+        <span class="n">donors_of_selected_project</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">donor</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">donor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">donors</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="p">]</span>
+        <span class="n">sum_of_don</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">donors_of_selected_project</span><span class="p">:</span>
+            <span class="n">sum_of_don</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sum_of_don</span> <span class="o">&gt;=</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span><span class="p">:</span>
+            <span class="n">projects_with_chance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">projects_with_chance</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">chosen_project</span> <span class="o">=</span> <span class="n">project_to_fund_selection_procedure</span><span class="p">(</span><span class="n">projects_with_chance</span><span class="p">,</span> <span class="n">donors</span><span class="p">)[</span>
+        <span class="mi">0</span>
+    <span class="p">]</span>  <span class="c1"># TODO: there should be a tie-breaking here</span>
+    <span class="n">donors_of_selected_project</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">donor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">donors</span><span class="p">)</span> <span class="k">if</span> <span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="p">]</span>
+
+    <span class="n">project_cost</span> <span class="o">=</span> <span class="n">chosen_project</span><span class="o">.</span><span class="n">cost</span>
+
+    <span class="c1"># Calculate initial support ratio</span>
+    <span class="n">total_support</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">total_support</span> <span class="o">/</span> <span class="n">project_cost</span>
+
+    <span class="c1"># Loop until the required support is achieved</span>
+    <span class="k">while</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># Check if all donors have their entire donation on the chosen project</span>
+        <span class="n">all_on_chosen_project</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span>
+            <span class="nb">sum</span><span class="p">(</span><span class="n">donors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">==</span> <span class="n">donors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">donors_of_selected_project</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">all_on_chosen_project</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">:</span>
+                <span class="n">eliminated_projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">project</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">donors_of_selected_project</span><span class="p">:</span>
+            <span class="n">donor</span> <span class="o">=</span> <span class="n">donors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">-</span> <span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">donation</span> <span class="o">=</span> <span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">to_distribute</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">donation</span> <span class="o">/</span> <span class="n">r</span> <span class="o">-</span> <span class="n">donation</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">proj_name</span><span class="p">,</span> <span class="n">proj_donation</span> <span class="ow">in</span> <span class="n">donor</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">proj_name</span> <span class="o">!=</span> <span class="n">chosen_project</span> <span class="ow">and</span> <span class="n">proj_donation</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">change</span> <span class="o">=</span> <span class="n">to_distribute</span> <span class="o">*</span> <span class="n">proj_donation</span> <span class="o">/</span> <span class="n">total</span>
+                        <span class="n">donor</span><span class="p">[</span><span class="n">proj_name</span><span class="p">]</span> <span class="o">-=</span> <span class="n">change</span>
+                        <span class="n">donor</span><span class="p">[</span><span class="n">chosen_project</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">change</span> <span class="o">*</span> <span class="mi">100000000000000</span><span class="p">)</span>
+                            <span class="o">/</span> <span class="mi">100000000000000</span>  <span class="c1"># TODO: What is this??</span>
+                        <span class="p">)</span>
+
+        <span class="c1"># Recalculate the support ratio</span>
+        <span class="n">total_support</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">total_support</span> <span class="o">/</span> <span class="n">project_cost</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="k">def</span> <span class="nf">reverse_eliminations</span><span class="p">(</span>
+    <span class="n">selected_projects</span><span class="p">:</span> <span class="n">BudgetAllocation</span><span class="p">,</span>
+    <span class="n">donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]],</span>
+    <span class="n">eliminated_projects</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
+    <span class="n">project_to_fund_selection_procedure</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">budget</span><span class="p">:</span> <span class="n">Numeric</span><span class="p">,</span>
+    <span class="n">tie_breaking</span><span class="p">:</span> <span class="n">TieBreakingRule</span> <span class="o">=</span> <span class="n">lexico_tie_breaking</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reverses elimination of projects if the budget allows.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        selected_projects : BudgetAllocation</span>
+<span class="sd">            The list of selected projects.</span>
+<span class="sd">        donors : list[dict[Project, Numeric]]</span>
+<span class="sd">            The list of donor ballots, not used in this function.</span>
+<span class="sd">        eliminated_projects : Instance</span>
+<span class="sd">            The list of eliminated projects.</span>
+<span class="sd">        project_to_fund_selection_procedure : callable</span>
+<span class="sd">            The procedure to select a project for funding, not used in this function.</span>
+<span class="sd">        budget : Numeric</span>
+<span class="sd">            The remaining budget.</span>
+<span class="sd">        tie_breaking : TieBreakingRule, optional</span>
+<span class="sd">            The tie-breaking rule to use, defaults to lexico_tie_breaking.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">eliminated_projects</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span> <span class="o">&lt;=</span> <span class="n">budget</span><span class="p">:</span>
+            <span class="n">selected_projects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+            <span class="n">budget</span> <span class="o">-=</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span>
+
+
+<span class="k">def</span> <span class="nf">acceptance_of_under_supported_projects</span><span class="p">(</span>
+    <span class="n">selected_projects</span><span class="p">:</span> <span class="n">BudgetAllocation</span><span class="p">,</span>
+    <span class="n">donors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="n">Project</span><span class="p">,</span> <span class="n">Numeric</span><span class="p">]],</span>
+    <span class="n">eliminated_projects</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
+    <span class="n">project_to_fund_selection_procedure</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">budget</span><span class="p">:</span> <span class="n">Numeric</span><span class="p">,</span>
+    <span class="n">tie_breaking</span><span class="p">:</span> <span class="n">TieBreakingRule</span> <span class="o">=</span> <span class="n">lexico_tie_breaking</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accepts under-supported projects if the budget allows.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        selected_projects : BudgetAllocation</span>
+<span class="sd">            The list of selected projects.</span>
+<span class="sd">        donors : list[dict[Project, Numeric]]</span>
+<span class="sd">            The list of donor ballots.</span>
+<span class="sd">        eliminated_projects : Instance</span>
+<span class="sd">            The list of eliminated projects.</span>
+<span class="sd">        project_to_fund_selection_procedure : callable</span>
+<span class="sd">            The procedure to select a project for funding.</span>
+<span class="sd">        budget : Numeric</span>
+<span class="sd">            The remaining budget.</span>
+<span class="sd">        tie_breaking : TieBreakingRule, optional</span>
+<span class="sd">            The tie-breaking rule to use, defaults to lexico_tie_breaking.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">eliminated_projects</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">selected_project</span> <span class="o">=</span> <span class="n">project_to_fund_selection_procedure</span><span class="p">(</span>
+            <span class="n">eliminated_projects</span><span class="p">,</span> <span class="n">donors</span><span class="p">,</span> <span class="n">tie_breaking</span><span class="p">,</span> <span class="kc">True</span>
+        <span class="p">)[</span>
+            <span class="mi">0</span>
+        <span class="p">]</span>  <span class="c1"># TODO: tie-breaking here</span>
+        <span class="k">if</span> <span class="n">selected_project</span><span class="o">.</span><span class="n">cost</span> <span class="o">&lt;=</span> <span class="n">budget</span><span class="p">:</span>
+            <span class="n">selected_projects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">selected_project</span><span class="p">)</span>
+            <span class="n">eliminated_projects</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">selected_project</span><span class="p">)</span>
+            <span class="n">budget</span> <span class="o">-=</span> <span class="n">selected_project</span><span class="o">.</span><span class="n">cost</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">eliminated_projects</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">selected_project</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Rey, Grzegorz Pierczyński, Markus Utke and Piotr Skowron
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Simon Rey, Grzegorz Pierczyński, Markus Utke and Piotr Skowron.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

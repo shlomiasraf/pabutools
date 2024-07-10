@@ -37,11 +37,12 @@ class TestFunctions(unittest.TestCase):
             for key in donor.keys():
                 donor[key] = 0
         for combination in CSTV_Combination:
-            with self.subTest(combination=combination):
-                selected_projects = cstv(self.instance, self.donors, combination)
-                self.assertEqual(
-                    len(selected_projects), 0
-                )
+            for verbose in [True, False]:
+                with self.subTest(combination=combination):
+                    selected_projects = cstv(self.instance, self.donors, combination, verbose=verbose)
+                    self.assertEqual(
+                        len(selected_projects), 0
+                    )
 
     def test_cstv_budgeting_with_budget_less_than_min_project_cost(self):
         # Ensure no projects are selected when total budget is less than the minimum project cost
@@ -50,11 +51,12 @@ class TestFunctions(unittest.TestCase):
             donor[self.p2] = 1
             donor[self.p3] = 1
         for combination in CSTV_Combination:
-            with self.subTest(combination=combination):
-                selected_projects = cstv(self.instance, self.donors, combination)
-                self.assertEqual(
-                    len(selected_projects), 0
-                )
+            for verbose in [True, False]:
+                with self.subTest(combination=combination):
+                    selected_projects = cstv(self.instance, self.donors, combination, verbose=verbose)
+                    self.assertEqual(
+                        len(selected_projects), 0
+                    )
 
     def test_cstv_budgeting_with_budget_greater_than_max_total_needed_support(self):
         # Ensure all projects are selected when budget exceeds the total needed support
@@ -63,20 +65,22 @@ class TestFunctions(unittest.TestCase):
             for key in donor.keys():
                 donor[key] = 100
         for combination in CSTV_Combination:
-            with self.subTest(combination=combination):
-                selected_projects = cstv(self.instance, donors, combination)
-                self.assertEqual(
-                    len(selected_projects), len(self.instance)
-                )
+            for verbose in [True, False]:
+                with self.subTest(combination=combination):
+                    selected_projects = cstv(self.instance, donors, combination, verbose=verbose)
+                    self.assertEqual(
+                        len(selected_projects), len(self.instance)
+                    )
 
     def test_cstv_budgeting_with_budget_between_min_and_max(self):
         # Ensure the number of selected projects is 2 when total budget is between the minimum and maximum costs
         for combination in CSTV_Combination:
-            with self.subTest(combination=combination):
-                selected_projects = cstv(self.instance, self.donors, combination)
-                self.assertEqual(
-                    len(selected_projects), 2
-                )
+            for verbose in [True, False]:
+                with self.subTest(combination=combination):
+                    selected_projects = cstv(self.instance, self.donors, combination, verbose=verbose)
+                    self.assertEqual(
+                        len(selected_projects), 2
+                    )
 
     def test_cstv_budgeting_with_budget_exactly_matching_required_support(self):
         # Ensure all projects are selected when the total budget matches the required support exactly
@@ -85,11 +89,12 @@ class TestFunctions(unittest.TestCase):
                 donor[self.p1] = frac(self.p1.cost, len(self.donors))
                 donor[self.p2] = frac(self.p2.cost, len(self.donors))
                 donor[self.p3] = frac(self.p3.cost, len(self.donors))
-            with self.subTest(combination=combination):
-                selected_projects = cstv(self.instance, self.donors, combination)
-                self.assertEqual(
-                    len(selected_projects), 3
-                )
+            for verbose in [True, False]:
+                with self.subTest(combination=combination):
+                    selected_projects = cstv(self.instance, self.donors, combination, verbose=verbose)
+                    self.assertEqual(
+                        len(selected_projects), 3
+                    )
 
     def test_cstv_budgeting_large_input(self):
         # Ensure the number of selected projects does not exceed the total number of projects

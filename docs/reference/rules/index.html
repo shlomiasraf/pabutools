@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Rules module &#8212; Pabutools</title>
   
@@ -35,8 +35,8 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script src="../../_static/documentation_options.js?v=a1e11e36"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/documentation_options.js?v=d8c5a152"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'reference/rules/index';</script>
@@ -354,6 +354,11 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cumulative-support-transfer-voting-rule">Cumulative Support Transfer Voting Rule</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.rules.cstv.CSTV_Combination"><code class="docutils literal notranslate"><span class="pre">CSTV_Combination</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.rules.cstv.cstv"><code class="docutils literal notranslate"><span class="pre">cstv()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exhaustion-methods">Exhaustion Methods</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.rules.exhaustion.completion_by_rule_combination"><code class="docutils literal notranslate"><span class="pre">completion_by_rule_combination()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.rules.exhaustion.exhaustion_by_budget_increase"><code class="docutils literal notranslate"><span class="pre">exhaustion_by_budget_increase()</span></code></a></li>
@@ -556,7 +561,7 @@ bought  but only by violating the budget constraint.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<a class="reference internal" href="../election/instance.html#pabutools.election.instance.Instance" title="pabutools.election.instance.Instance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Instance</span></code></a>) – The instance.</p></li>
-<li><p><strong>profile</strong> (<a class="reference internal" href="../election/profile.html#pabutools.election.profile.profile.AbstractProfile" title="pabutools.election.profile.profile.AbstractProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractProfile</span></code></a>) – The profile.</p></li>
+<li><p><strong>profile</strong> (<a class="reference internal" href="../election/profile.html#pabutools.election.profile.approvalprofile.AbstractApprovalProfile" title="pabutools.election.profile.approvalprofile.AbstractApprovalProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractApprovalProfile</span></code></a>) – The profile.</p></li>
 <li><p><strong>initial_loads</strong> (<em>list</em><em>[</em><em>Numeric</em><em>]</em><em>, </em><em>optional</em>) – A list of initial load, one per ballot in <cite>profile</cite>. By defaults, the initial load is <cite>0</cite>.</p></li>
 <li><p><strong>initial_budget_allocation</strong> (Iterable[<a class="reference internal" href="../election/instance.html#pabutools.election.instance.Project" title="pabutools.election.instance.Project"><code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></a>]) – An initial budget allocation, typically empty.</p></li>
 <li><p><strong>tie_breaking</strong> (<a class="reference internal" href="../tiebreaking.html#pabutools.tiebreaking.TieBreakingRule" title="pabutools.tiebreaking.TieBreakingRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">TieBreakingRule</span></code></a>, optional) – The tie-breaking rule used.
@@ -694,6 +699,52 @@ in this iteration, the budget of all the voters and the project that was selecte
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="cumulative-support-transfer-voting-rule">
+<h2>Cumulative Support Transfer Voting Rule<a class="headerlink" href="#cumulative-support-transfer-voting-rule" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pabutools.rules.cstv.CSTV_Combination">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CSTV_Combination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pabutools/rules/cstv.html#CSTV_Combination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pabutools.rules.cstv.CSTV_Combination" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pabutools.rules.cstv.cstv">
+<span class="sig-name descname"><span class="pre">cstv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance:</span> <span class="pre">~pabutools.election.instance.Instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile:</span> <span class="pre">~pabutools.election.profile.cumulativeprofile.AbstractCumulativeProfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combination:</span> <span class="pre">~pabutools.rules.cstv.CSTV_Combination</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_project_to_fund_func:</span> <span class="pre">~collections.abc.Callable</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eligible_projects_func:</span> <span class="pre">~collections.abc.Callable</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_eligible_project_func:</span> <span class="pre">~collections.abc.Callable</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exhaustiveness_postprocess_func:</span> <span class="pre">~collections.abc.Callable</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_budget_allocation:</span> <span class="pre">~collections.abc.Collection[~pabutools.election.instance.Project]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_breaking:</span> <span class="pre">~pabutools.tiebreaking.TieBreakingRule</span> <span class="pre">=</span> <span class="pre">&lt;pabutools.tiebreaking.TieBreakingRule</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resoluteness:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pabutools.rules.budgetallocation.BudgetAllocation" title="pabutools.rules.budgetallocation.BudgetAllocation"><span class="pre">BudgetAllocation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pabutools.rules.budgetallocation.BudgetAllocation" title="pabutools.rules.budgetallocation.BudgetAllocation"><span class="pre">BudgetAllocation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/pabutools/rules/cstv.html#cstv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pabutools.rules.cstv.cstv" title="Link to this definition">#</a></dt>
+<dd><p>The CSTV (Cumulative Support Transfer Voting) budgeting algorithm determines project funding
+based on cumulative support from donor ballots.
+This function evaluates a list of projects and donor profiles, selecting projects for funding
+according to the CSTV methodology.
+It employs various procedures for project selection, eligibility determination, and handling of
+scenarios where no eligible projects exist or to ensure inclusive maximality.
+You can read more about the algorithm in sections 4 and 5 in the paper here:
+<a class="reference external" href="https://arxiv.org/pdf/2009.02690">https://arxiv.org/pdf/2009.02690</a> in sections 4 and 5.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> (<a class="reference internal" href="../election/instance.html#pabutools.election.instance.Instance" title="pabutools.election.instance.Instance"><em>Instance</em></a>) – The list of projects.</p></li>
+<li><p><strong>profile</strong> (<a class="reference internal" href="../election/profile.html#pabutools.election.profile.cumulativeprofile.AbstractCumulativeProfile" title="pabutools.election.profile.cumulativeprofile.AbstractCumulativeProfile"><em>AbstractCumulativeProfile</em></a>) – The list of donor ballots.</p></li>
+<li><p><strong>combination</strong> (<a class="reference internal" href="#pabutools.rules.cstv.CSTV_Combination" title="pabutools.rules.cstv.CSTV_Combination"><em>CSTV_Combination</em></a>) – Shortcut to use pre-defined sets of parameters (all the different procedures).</p></li>
+<li><p><strong>select_project_to_fund_func</strong> (<em>callable</em>) – The procedure to select a project for funding.</p></li>
+<li><p><strong>eligible_projects_func</strong> (<em>callable</em>) – The function to determine eligible projects.</p></li>
+<li><p><strong>no_eligible_project_func</strong> (<em>callable</em>) – The procedure when there are no eligible projects.</p></li>
+<li><p><strong>exhaustiveness_postprocess_func</strong> (<em>callable</em>) – The post procedure to handle inclusive maximality.</p></li>
+<li><p><strong>initial_budget_allocation</strong> (Iterable[<a class="reference internal" href="../election/instance.html#pabutools.election.instance.Project" title="pabutools.election.instance.Project"><code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></a>]) – An initial budget allocation, typically empty.</p></li>
+<li><p><strong>tie_breaking</strong> (<a class="reference internal" href="../tiebreaking.html#pabutools.tiebreaking.TieBreakingRule" title="pabutools.tiebreaking.TieBreakingRule"><em>TieBreakingRule</em></a><em>, </em><em>optional</em>) – The tie-breaking rule to use, defaults to lexico_tie_breaking.</p></li>
+<li><p><strong>resoluteness</strong> (<em>bool</em><em>, </em><em>optional</em>) – Set to <cite>False</cite> to obtain an irresolute outcome, where all tied budget allocations are
+returned. Defaults to True.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – (De)Activate the display of additional information.
+Defaults to <cite>False</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of selected projects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pabutools.rules.budgetallocation.BudgetAllocation" title="pabutools.rules.budgetallocation.BudgetAllocation"><em>BudgetAllocation</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -908,6 +959,11 @@ functions. Defaults to <cite>{}</cite>.</p></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.rules.mes.MESIteration.selected_project"><code class="docutils literal notranslate"><span class="pre">MESIteration.selected_project</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cumulative-support-transfer-voting-rule">Cumulative Support Transfer Voting Rule</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.rules.cstv.CSTV_Combination"><code class="docutils literal notranslate"><span class="pre">CSTV_Combination</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.rules.cstv.cstv"><code class="docutils literal notranslate"><span class="pre">cstv()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exhaustion-methods">Exhaustion Methods</a><ul class="nav section-nav flex-column">

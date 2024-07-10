@@ -38,6 +38,13 @@ Method of Equal Shares (MES)
 
 .. autoclass:: pabutools.rules.mes.MESIteration
 
+Cumulative Support Transfer Voting Rule
+---------------------------------------
+
+.. autoclass:: pabutools.rules.cstv.CSTV_Combination
+
+.. autofunction:: pabutools.rules.cstv.cstv
+
 Exhaustion Methods
 ------------------
 

@@ -33,9 +33,28 @@ from pabutools.utils import Numeric
 
 class CSTV_Combination(Enum):
     EWT = 1
+    """
+    Project selection via greedy-by-excess; eligible projects selected via greedy-by-excess;
+    elimination with transfer used if no eligible projects; and reverse elimination as post-processing method.
+    """
+
     EWTC = 2
+    """
+    Project selection via greedy-by-support-over-cost; eligible projects selected via greedy-by-support-over-cost;
+    elimination with transfer used if no eligible projects; and reverse elimination as post-processing method.
+    """
+
     MT = 3
+    """
+    Project selection via greedy-by-excess; eligible projects selected via greedy-by-excess;
+    minimal transfer used if no eligible projects; and acceptance of under-supported projects as post-processing method.
+    """
+
     MTC = 4
+    """
+    Project selection via greedy-by-support-over-cost; eligible projects selected via greedy-by-support-over-cost
+    minimal transfer used if no eligible projects; and acceptance of under-supported projects as post-processing method.
+    """
 
 
 def cstv(
@@ -196,9 +215,9 @@ def cstv(
         # Log donations for each project
         if verbose:
             for project in current_projects:
-                donations = sum(ballot[project] for ballot in donations)
+                total_donation = sum(donor[project] for donor in donations)
                 print(
-                    f"Donors and total donations for {project}: {donations}. Price: {project.cost}"
+                    f"Donors and total donations for {project}: {total_donation}. Price: {project.cost}"
                 )
 
         # Determine eligible projects for funding
@@ -242,7 +261,7 @@ def cstv(
             p = tied_projects[0]
         excess_support = sum(donor.get(p.name, 0) for donor in donations) - p.cost
         if verbose:
-            print(f"Excess support for {p: {excess_support}}")
+            print(f"Excess support for {p}: {excess_support}")
 
         # If the project has enough or excess support
         if excess_support >= 0:

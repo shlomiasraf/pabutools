@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Utils &#8212; Pabutools</title>
   
@@ -35,8 +35,8 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script src="../_static/documentation_options.js?v=a1e11e36"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/documentation_options.js?v=d8c5a152"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'reference/utils';</script>
@@ -317,6 +317,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.gini_coefficient"><code class="docutils literal notranslate"><span class="pre">gini_coefficient()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.mean_generator"><code class="docutils literal notranslate"><span class="pre">mean_generator()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.powerset"><code class="docutils literal notranslate"><span class="pre">powerset()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.round_cmp"><code class="docutils literal notranslate"><span class="pre">round_cmp()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.Numeric"><code class="docutils literal notranslate"><span class="pre">Numeric</span></code></a></li>
 </ul>
             </nav>
@@ -391,11 +392,35 @@ is assumed to be the value and the second its multiplicity.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="pabutools.utils.round_cmp">
+<span class="sig-name descname"><span class="pre">round_cmp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">mpq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">mpq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/pabutools/utils.html#round_cmp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pabutools.utils.round_cmp" title="Link to this definition">#</a></dt>
+<dd><p>Compares two numbers after rounding them to a specified precision.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>Numeric</em>) – The first number for comparison.</p></li>
+<li><p><strong>b</strong> (<em>Numeric</em>) – The second number for comparison.</p></li>
+<li><p><strong>precision</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of decimal places to which the numbers should be rounded.
+Defaults to 6.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A negative number if the rounded value of ‘a’ is less than the rounded value of ‘b’,
+0 if they are approximately equal after rounding,
+a positive number if the rounded value of ‘a’ is greater than the rounded value of ‘b’.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>int</em></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py data">
 <dt class="sig sig-object py" id="pabutools.utils.Numeric">
 <span class="sig-name descname"><span class="pre">Numeric</span></span><a class="headerlink" href="#pabutools.utils.Numeric" title="Link to this definition">#</a></dt>
 <dd><p>Type for numeric values. Is the union of int, float and mpq fractions (from the gumpy2 package).</p>
-<p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">mpq</span></code>]</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">mpq</span></code></p>
 </dd></dl>
 
 </section>
@@ -443,6 +468,7 @@ is assumed to be the value and the second its multiplicity.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.gini_coefficient"><code class="docutils literal notranslate"><span class="pre">gini_coefficient()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.mean_generator"><code class="docutils literal notranslate"><span class="pre">mean_generator()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.powerset"><code class="docutils literal notranslate"><span class="pre">powerset()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.round_cmp"><code class="docutils literal notranslate"><span class="pre">round_cmp()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pabutools.utils.Numeric"><code class="docutils literal notranslate"><span class="pre">Numeric</span></code></a></li>
 </ul>
   </nav></div>

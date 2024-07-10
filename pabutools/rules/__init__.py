@@ -38,6 +38,7 @@ from pabutools.rules.budgetallocation import (
     BudgetAllocation,
     AllocationDetails,
 )
+from pabutools.rules.cstv import cstv, CSTV_Combination
 
 __all__ = [
     "completion_by_rule_combination",
@@ -53,4 +54,6 @@ __all__ = [
     "AllocationDetails",
     "MESAllocationDetails",
     "MESIteration",
+    "cstv",
+    "CSTV_Combination"
 ]

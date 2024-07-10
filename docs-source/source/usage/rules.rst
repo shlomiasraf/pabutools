@@ -282,30 +282,68 @@ performances, one should use the following:
     )
 
 
-CSTV Algorithm
---------------
+Cumulative Support Transfer Voting Rule
+---------------------------------------
 
 :py:func:`~pabutools.rules.cstv.cstv`
 
-The `cstv` function implements the Cost-Sensitive Approval Voting algorithm for participatory budgeting. It takes into account both voter preferences and project costs to allocate budgets efficiently.
+The `cstv` function implements the Cost-Sensitive Approval Voting algorithm for participatory budgeting. This rules takes as input cumulative profiles that are interpreted as donation in favour of the projects.
+
+The rule uses a combination of inner functions that need to be provided as arguments. Alternatively, pre-defined
+combinations can be used via the :py:class:`~pabutools.rules.cstv.CSTV_Combination`.
 
 .. code-block:: python
 
-    from pabutools.election import Instance, Project, ApprovalProfile, ApprovalBallot
+    from pabutools.election import Instance, Project, CumulativeProfile, CumulativeBallot
     from pabutools.rules import cstv
 
-    projects = Instance(Project("Project A", 35), Project("Project B", 30))
-    instance = Instance(projects)
+    p1 = Project("A", 27)
+    p2 = Project("B", 30)
+    p3 = Project("C", 40)
+    instance = Instance([p1, p2, p3])
+    donors = CumulativeProfile(
+        [
+            CumulativeBallot({p1: 5, p2: 10, p3: 5}),
+            CumulativeBallot({p1: 10, p2: 10, p3: 0}),
+            CumulativeBallot({p1: 0, p2: 15, p3: 5}),
+            CumulativeBallot({p1: 0, p2: 0, p3: 20}),
+            CumulativeBallot({p1: 15, p2: 5, p3: 0}),
+        ]
+    )
 
-    donors = Profile([CumulativeBallot({"Project A": 5, "Project B": 10), CumulativeBallot({"Project A": 5, "Project B": 10), CumulativeBallot({"Project A": 0, "Project B": 15), CumulativeBallot({"Project A": 8, "Project B": 7}), CumulativeBallot({"Project A": 10, "Project B": 5)])
-    alg_str = "ewt" # Look in the paper that is the insperation for this code in section 5.6
-    outcome1 = cstv_budgeting_combination(instance, donors, alg_str)
+    # Using of the pre-defined combination:
+    from pabutools.rules import CSTV_Combination
+    cstv(instance, donors, CSTV_Combination.EWT)
+    cstv(instance, donors, CSTV_Combination.EWTC)
+    cstv(instance, donors, CSTV_Combination.EWT)
+    cstv(instance, donors, CSTV_Combination.MTC)
 
-Details for the Budget Allocation Rule
---------------------------------------
+    # Passing all the functions (this combination is EWT):
+    from pabutools.rules.cstv import (
+        select_project_ge, is_eligible_ge,
+        elimination_with_transfers, reverse_eliminations
+    )
+    cstv(
+        instance,
+        donors,
+        select_project_to_fund_func = select_project_ge,
+        eligible_projects_func = is_eligible_ge,
+        no_eligible_project_func = elimination_with_transfers,
+        exhaustiveness_postprocess_func = reverse_eliminations
+    )
 
-The `cstv` function returns a :py:class:`~pabutools.rules.budgetallocation.BudgetAllocation` object, which includes information about the allocated budget and can be used for further analysis or visualization.
-
+    # You can also specify the usual parameters:
+    from pabutools.rules import BudgetAllocation
+    from pabutools.tiebreaking import lexico_tie_breaking
+    cstv(
+        instance,
+        donors,
+        CSTV_Combination.EWT,
+        initial_budget_allocation = BudgetAllocation([Project("D", 10)]),
+        tie_breaking = lexico_tie_breaking,
+        resoluteness = True,  # Value 'False' is not yet supported
+        verbose = True
+    )
 
 Exhaustion Methods
 ------------------
