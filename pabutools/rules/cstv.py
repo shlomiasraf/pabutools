@@ -8,20 +8,20 @@ Date: 2024/05/16.
 
 from __future__ import annotations
 
-import copy
-from collections.abc import Callable, Collection, Iterable
+import math
+import warnings
+
+from collections.abc import Callable, Iterable
 from enum import Enum
 
-import numpy as np
-
-from pabutools.election import (
-    Project,
-    Instance,
-    AbstractCumulativeProfile,
-)
+from pabutools.election.instance import Instance, Project
+from pabutools.election.profile.cumulativeprofile import AbstractCumulativeProfile
+from pabutools.fractions import frac
 from pabutools.rules.budgetallocation import BudgetAllocation
 from pabutools.tiebreaking import TieBreakingRule, lexico_tie_breaking
 from pabutools.utils import Numeric
+
+import pabutools.fractions
 
 
 ###################################################################
@@ -65,8 +65,8 @@ def cstv(
     eligible_projects_func: Callable = None,
     no_eligible_project_func: Callable = None,
     exhaustiveness_postprocess_func: Callable = None,
-    initial_budget_allocation: Collection[Project] | None = None,
-    tie_breaking: TieBreakingRule = lexico_tie_breaking,
+    initial_budget_allocation: Iterable[Project] | None = None,
+    tie_breaking: TieBreakingRule | None = None,
     resoluteness: bool = True,
     verbose: bool = False,
 ) -> BudgetAllocation | list[BudgetAllocation]:
@@ -82,23 +82,23 @@ def cstv(
 
     Parameters
     ----------
-        instance : Instance
+        instance : :py:class:`~pabutools.election.instance.Instance`
             The list of projects.
-        profile : AbstractCumulativeProfile
+        profile : :py:class:`~pabutools.election.profile.cumulativeprofile.AbstractCumulativeProfile`
             The list of donor ballots.
-        combination: CSTV_Combination
+        combination : :py:class:`~pabutools.rules.cstv.CSTV_Combination`
             Shortcut to use pre-defined sets of parameters (all the different procedures).
-        select_project_to_fund_func : callable
+        select_project_to_fund_func : Callable
             The procedure to select a project for funding.
-        eligible_projects_func : callable
+        eligible_projects_func : Callable
             The function to determine eligible projects.
-        no_eligible_project_func : callable
+        no_eligible_project_func : Callable
             The procedure when there are no eligible projects.
-        exhaustiveness_postprocess_func : callable
+        exhaustiveness_postprocess_func : Callable
             The post procedure to handle inclusive maximality.
         initial_budget_allocation : Iterable[:py:class:`~pabutools.election.instance.Project`]
             An initial budget allocation, typically empty.
-        tie_breaking : TieBreakingRule, optional
+        tie_breaking : :py:class:`~pabutools.tiebreaking.TieBreakingRule`, optional
             The tie-breaking rule to use, defaults to lexico_tie_breaking.
         resoluteness : bool, optional
             Set to `False` to obtain an irresolute outcome, where all tied budget allocations are
@@ -112,6 +112,9 @@ def cstv(
         BudgetAllocation
             The list of selected projects.
     """
+
+    if tie_breaking is None:
+        tie_breaking = lexico_tie_breaking
 
     if combination is not None:
         if combination == CSTV_Combination.EWT:
@@ -172,8 +175,6 @@ def cstv(
             "Not all donors donate the same amount. Change the donations and try again."
         )
 
-    if tie_breaking is None:
-        tie_breaking = lexico_tie_breaking
     if initial_budget_allocation is None:
         initial_budget_allocation = BudgetAllocation()
     else:
@@ -267,7 +268,7 @@ def cstv(
         if excess_support >= 0:
             if excess_support > 0.01:
                 # Perform the excess redistribution procedure
-                gama = p.cost / (excess_support + p.cost)
+                gama = frac(p.cost, excess_support + p.cost)
                 excess_redistribution_procedure(donations, p, gama)
             else:
                 # Reset donations for the eliminated project
@@ -322,7 +323,7 @@ def excess_redistribution_procedure(
         for key, donation in donor_copy.items():
             if donation != selected_project:
                 if total != 0:
-                    part = donation / total
+                    part = frac(donation, total)
                     donor[key] = donation + to_distribute * part
                 donor[selected_project] = 0
 
@@ -373,7 +374,7 @@ def is_eligible_gsc(
     return [
         project
         for project in projects
-        if (sum(donor.get(project, 0) for donor in donors) / project.cost) >= 1
+        if frac(sum(donor.get(project, 0) for donor in donors), project.cost) >= 1
     ]
 
 
@@ -429,7 +430,7 @@ def select_project_gsc(
             The tied selected projects.
     """
     excess_support = {
-        project: sum(donor.get(project, 0) for donor in donors) / project.cost
+        project: frac(sum(donor.get(project, 0) for donor in donors), project.cost)
         for project in projects
     }
     max_excess_value = max(excess_support.values())
@@ -485,7 +486,7 @@ def elimination_with_transfers(
                 continue
             for key, donation in donor.items():
                 if key != eliminated_project:
-                    part = donation / total
+                    part = frac(donation, total)
                     donor[key] = donation + to_distribute * part
             donor[eliminated_project] = 0
 
@@ -532,6 +533,8 @@ def minimal_transfer(
             eliminated_projects.
 
     """
+    if pabutools.fractions.FRACTION != pabutools.fractions.FLOAT_FRAC:
+        warnings.warn("You are using minimal transfers with exact fractions, this may never end...")
     projects_with_chance = []
     for project in projects:
         donors_of_selected_project = [
@@ -557,39 +560,43 @@ def minimal_transfer(
 
     # Calculate initial support ratio
     total_support = sum(donor.get(chosen_project, 0) for donor in donors)
-    r = total_support / project_cost
+    r = frac(total_support, project_cost)
 
     # Loop until the required support is achieved
+    num_loop_run = 0
     while r < 1:
+        num_loop_run += 1
         # Check if all donors have their entire donation on the chosen project
         all_on_chosen_project = all(
             sum(donors[i].values()) == donors[i].get(chosen_project, 0)
             for i in donors_of_selected_project
         )
-
         if all_on_chosen_project:
             for project in projects:
-                eliminated_projects.add(copy.deepcopy(project))
+                eliminated_projects.add(project)
             return False
 
         for i in donors_of_selected_project:
             donor = donors[i]
-            total = sum(donor.values()) - donor.get(chosen_project, 0)
             donation = donor.get(chosen_project, 0)
+            total = sum(donor.values()) - donation
             if total > 0:
-                to_distribute = min(total, donation / r - donation)
+                to_distribute = min(total, frac(donation, r) - donation)
                 for proj_name, proj_donation in donor.items():
                     if proj_name != chosen_project and proj_donation > 0:
-                        change = to_distribute * proj_donation / total
+                        change = frac(to_distribute * proj_donation, total)
+                        if 1 - change < 1e-14:
+                            change = 1
                         donor[proj_name] -= change
-                        donor[chosen_project] += (
-                            np.ceil(change * 100000000000000)
-                            / 100000000000000  # TODO: What is this??
-                        )
+                        donor[chosen_project] += frac(math.ceil(change * 100000000000000), 100000000000000)
 
         # Recalculate the support ratio
         total_support = sum(donor.get(chosen_project, 0) for donor in donors)
-        r = total_support / project_cost
+        r = frac(total_support, project_cost)
+
+        if num_loop_run > 10000:
+            raise RuntimeError("The while loop of the minimal_transfer function ran for too long. This can be due to"
+                               " issues with floating point arithmetic.")
     return True
 
 

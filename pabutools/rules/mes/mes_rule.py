@@ -21,9 +21,8 @@ from pabutools.election.ballot.ballot import AbstractBallot
 from pabutools.election.instance import Instance, Project
 from pabutools.election.profile import AbstractProfile
 from pabutools.election.satisfaction import SatisfactionMeasure
-from pabutools.tiebreaking import lexico_tie_breaking
+from pabutools.tiebreaking import TieBreakingRule, lexico_tie_breaking
 from pabutools.fractions import frac
-from pabutools.tiebreaking import TieBreakingRule
 
 
 class MESVoter:

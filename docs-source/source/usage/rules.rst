@@ -269,14 +269,14 @@ measure provided. For more details, see the `equalshares.net <https://equalshare
 
 MES can significantly under-use the budget. The idea of running the rule for different
 initial budget for the voters has been proposed in the scientific literature as a fix
-for that problem. The next section will present general methods to do so. For optimal
-performances, one should use the following:
+for that problem. General exhaustion methods are presented further down this page. For
+improved performances, one should use the following:
 
 .. code-block:: python
 
     outcome = method_of_equal_shares(
         instance,
-        profile.as_multiprofile(), # Faster in general (typically if ballots repeat each others)
+        profile.as_multiprofile(), # Faster in general (typically if ballots repeat a lot)
         sat_class=Cost_Sat,
         voter_budget_increment=1 # As soon as not-None, mes iterated is used
     )

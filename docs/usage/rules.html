@@ -584,11 +584,11 @@ measure provided. For more details, see the <a class="reference external" href="
 </div>
 <p>MES can significantly under-use the budget. The idea of running the rule for different
 initial budget for the voters has been proposed in the scientific literature as a fix
-for that problem. The next section will present general methods to do so. For optimal
-performances, one should use the following:</p>
+for that problem. General exhaustion methods are presented further down this page. For
+improved performances, one should use the following:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outcome</span> <span class="o">=</span> <span class="n">method_of_equal_shares</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">,</span>
-    <span class="n">profile</span><span class="o">.</span><span class="n">as_multiprofile</span><span class="p">(),</span> <span class="c1"># Faster in general (typically if ballots repeat each others)</span>
+    <span class="n">profile</span><span class="o">.</span><span class="n">as_multiprofile</span><span class="p">(),</span> <span class="c1"># Faster in general (typically if ballots repeat a lot)</span>
     <span class="n">sat_class</span><span class="o">=</span><span class="n">Cost_Sat</span><span class="p">,</span>
     <span class="n">voter_budget_increment</span><span class="o">=</span><span class="mi">1</span> <span class="c1"># As soon as not-None, mes iterated is used</span>
 <span class="p">)</span>

@@ -73,7 +73,7 @@ def sequential_phragmen(
 
     Parameters
     ----------
-        instance: :py:class:`~pabutools.election.instance.Instance`
+        instance : :py:class:`~pabutools.election.instance.Instance`
             The instance.
         profile : :py:class:`~pabutools.election.profile.approvalprofile.AbstractApprovalProfile`
             The profile.

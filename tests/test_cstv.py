@@ -10,7 +10,8 @@ import unittest
 from copy import deepcopy
 
 from pabutools.election import Project, CumulativeBallot, Instance, CumulativeProfile
-from pabutools.fractions import frac
+from pabutools.fractions import frac, FRACTION, FLOAT_FRAC
+import pabutools.fractions
 from pabutools.rules.cstv import cstv, CSTV_Combination
 import random
 
@@ -115,6 +116,7 @@ class TestFunctions(unittest.TestCase):
                 )
 
     def test_cstv_budgeting_large_random_input(self):
+        pabutools.fractions.FRACTION = FLOAT_FRAC
         for combination in CSTV_Combination:
             projects = [
                 Project(f"Project_{i}", random.randint(100, 1000)) for i in range(100)

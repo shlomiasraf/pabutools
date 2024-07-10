@@ -276,20 +276,20 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="kn">from</span> <span class="nn">pabutools.election</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Project</span><span class="p">,</span>
-    <span class="n">Instance</span><span class="p">,</span>
-    <span class="n">AbstractCumulativeProfile</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pabutools.election.instance</span> <span class="kn">import</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Project</span>
+<span class="kn">from</span> <span class="nn">pabutools.election.profile.cumulativeprofile</span> <span class="kn">import</span> <span class="n">AbstractCumulativeProfile</span>
+<span class="kn">from</span> <span class="nn">pabutools.fractions</span> <span class="kn">import</span> <span class="n">frac</span>
 <span class="kn">from</span> <span class="nn">pabutools.rules.budgetallocation</span> <span class="kn">import</span> <span class="n">BudgetAllocation</span>
 <span class="kn">from</span> <span class="nn">pabutools.tiebreaking</span> <span class="kn">import</span> <span class="n">TieBreakingRule</span><span class="p">,</span> <span class="n">lexico_tie_breaking</span>
 <span class="kn">from</span> <span class="nn">pabutools.utils</span> <span class="kn">import</span> <span class="n">Numeric</span>
+
+<span class="kn">import</span> <span class="nn">pabutools.fractions</span>
 
 
 <span class="c1">###################################################################</span>
@@ -338,8 +338,8 @@ document.write(`
     <span class="n">eligible_projects_func</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_eligible_project_func</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">exhaustiveness_postprocess_func</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">initial_budget_allocation</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">Project</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">tie_breaking</span><span class="p">:</span> <span class="n">TieBreakingRule</span> <span class="o">=</span> <span class="n">lexico_tie_breaking</span><span class="p">,</span>
+    <span class="n">initial_budget_allocation</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Project</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tie_breaking</span><span class="p">:</span> <span class="n">TieBreakingRule</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">resoluteness</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BudgetAllocation</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">BudgetAllocation</span><span class="p">]:</span>
@@ -355,23 +355,23 @@ document.write(`
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">        instance : Instance</span>
+<span class="sd">        instance : :py:class:`~pabutools.election.instance.Instance`</span>
 <span class="sd">            The list of projects.</span>
-<span class="sd">        profile : AbstractCumulativeProfile</span>
+<span class="sd">        profile : :py:class:`~pabutools.election.profile.cumulativeprofile.AbstractCumulativeProfile`</span>
 <span class="sd">            The list of donor ballots.</span>
-<span class="sd">        combination: CSTV_Combination</span>
+<span class="sd">        combination : :py:class:`~pabutools.rules.cstv.CSTV_Combination`</span>
 <span class="sd">            Shortcut to use pre-defined sets of parameters (all the different procedures).</span>
-<span class="sd">        select_project_to_fund_func : callable</span>
+<span class="sd">        select_project_to_fund_func : Callable</span>
 <span class="sd">            The procedure to select a project for funding.</span>
-<span class="sd">        eligible_projects_func : callable</span>
+<span class="sd">        eligible_projects_func : Callable</span>
 <span class="sd">            The function to determine eligible projects.</span>
-<span class="sd">        no_eligible_project_func : callable</span>
+<span class="sd">        no_eligible_project_func : Callable</span>
 <span class="sd">            The procedure when there are no eligible projects.</span>
-<span class="sd">        exhaustiveness_postprocess_func : callable</span>
+<span class="sd">        exhaustiveness_postprocess_func : Callable</span>
 <span class="sd">            The post procedure to handle inclusive maximality.</span>
 <span class="sd">        initial_budget_allocation : Iterable[:py:class:`~pabutools.election.instance.Project`]</span>
 <span class="sd">            An initial budget allocation, typically empty.</span>
-<span class="sd">        tie_breaking : TieBreakingRule, optional</span>
+<span class="sd">        tie_breaking : :py:class:`~pabutools.tiebreaking.TieBreakingRule`, optional</span>
 <span class="sd">            The tie-breaking rule to use, defaults to lexico_tie_breaking.</span>
 <span class="sd">        resoluteness : bool, optional</span>
 <span class="sd">            Set to `False` to obtain an irresolute outcome, where all tied budget allocations are</span>
@@ -385,6 +385,9 @@ document.write(`
 <span class="sd">        BudgetAllocation</span>
 <span class="sd">            The list of selected projects.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">tie_breaking</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tie_breaking</span> <span class="o">=</span> <span class="n">lexico_tie_breaking</span>
 
     <span class="k">if</span> <span class="n">combination</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">combination</span> <span class="o">==</span> <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">EWT</span><span class="p">:</span>
@@ -540,7 +543,7 @@ document.write(`
         <span class="k">if</span> <span class="n">excess_support</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">excess_support</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>
                 <span class="c1"># Perform the excess redistribution procedure</span>
-                <span class="n">gama</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">cost</span> <span class="o">/</span> <span class="p">(</span><span class="n">excess_support</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span>
+                <span class="n">gama</span> <span class="o">=</span> <span class="n">frac</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">cost</span><span class="p">,</span> <span class="n">excess_support</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span>
                 <span class="n">excess_redistribution_procedure</span><span class="p">(</span><span class="n">donations</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">gama</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Reset donations for the eliminated project</span>
@@ -596,7 +599,7 @@ document.write(`
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">donation</span> <span class="ow">in</span> <span class="n">donor_copy</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">donation</span> <span class="o">!=</span> <span class="n">selected_project</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">total</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">part</span> <span class="o">=</span> <span class="n">donation</span> <span class="o">/</span> <span class="n">total</span>
+                    <span class="n">part</span> <span class="o">=</span> <span class="n">frac</span><span class="p">(</span><span class="n">donation</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
                     <span class="n">donor</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">donation</span> <span class="o">+</span> <span class="n">to_distribute</span> <span class="o">*</span> <span class="n">part</span>
                 <span class="n">donor</span><span class="p">[</span><span class="n">selected_project</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -647,7 +650,7 @@ document.write(`
     <span class="k">return</span> <span class="p">[</span>
         <span class="n">project</span>
         <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span> <span class="o">/</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">frac</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">),</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
     <span class="p">]</span>
 
 
@@ -703,7 +706,7 @@ document.write(`
 <span class="sd">            The tied selected projects.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">excess_support</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">project</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span> <span class="o">/</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span>
+        <span class="n">project</span><span class="p">:</span> <span class="n">frac</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">),</span> <span class="n">project</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span>
     <span class="p">}</span>
     <span class="n">max_excess_value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">excess_support</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
@@ -759,7 +762,7 @@ document.write(`
                 <span class="k">continue</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">donation</span> <span class="ow">in</span> <span class="n">donor</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="n">eliminated_project</span><span class="p">:</span>
-                    <span class="n">part</span> <span class="o">=</span> <span class="n">donation</span> <span class="o">/</span> <span class="n">total</span>
+                    <span class="n">part</span> <span class="o">=</span> <span class="n">frac</span><span class="p">(</span><span class="n">donation</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
                     <span class="n">donor</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">donation</span> <span class="o">+</span> <span class="n">to_distribute</span> <span class="o">*</span> <span class="n">part</span>
             <span class="n">donor</span><span class="p">[</span><span class="n">eliminated_project</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -806,6 +809,8 @@ document.write(`
 <span class="sd">            eliminated_projects.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pabutools</span><span class="o">.</span><span class="n">fractions</span><span class="o">.</span><span class="n">FRACTION</span> <span class="o">!=</span> <span class="n">pabutools</span><span class="o">.</span><span class="n">fractions</span><span class="o">.</span><span class="n">FLOAT_FRAC</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;You are using minimal transfers with exact fractions, this may never end...&quot;</span><span class="p">)</span>
     <span class="n">projects_with_chance</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">:</span>
         <span class="n">donors_of_selected_project</span> <span class="o">=</span> <span class="p">[</span>
@@ -831,39 +836,43 @@ document.write(`
 
     <span class="c1"># Calculate initial support ratio</span>
     <span class="n">total_support</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">total_support</span> <span class="o">/</span> <span class="n">project_cost</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">frac</span><span class="p">(</span><span class="n">total_support</span><span class="p">,</span> <span class="n">project_cost</span><span class="p">)</span>
 
     <span class="c1"># Loop until the required support is achieved</span>
+    <span class="n">num_loop_run</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">num_loop_run</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="c1"># Check if all donors have their entire donation on the chosen project</span>
         <span class="n">all_on_chosen_project</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span>
             <span class="nb">sum</span><span class="p">(</span><span class="n">donors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">==</span> <span class="n">donors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">donors_of_selected_project</span>
         <span class="p">)</span>
-
         <span class="k">if</span> <span class="n">all_on_chosen_project</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">:</span>
-                <span class="n">eliminated_projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">project</span><span class="p">))</span>
+                <span class="n">eliminated_projects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">donors_of_selected_project</span><span class="p">:</span>
             <span class="n">donor</span> <span class="o">=</span> <span class="n">donors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">-</span> <span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">donation</span> <span class="o">=</span> <span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">-</span> <span class="n">donation</span>
             <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">to_distribute</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">donation</span> <span class="o">/</span> <span class="n">r</span> <span class="o">-</span> <span class="n">donation</span><span class="p">)</span>
+                <span class="n">to_distribute</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">frac</span><span class="p">(</span><span class="n">donation</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="o">-</span> <span class="n">donation</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">proj_name</span><span class="p">,</span> <span class="n">proj_donation</span> <span class="ow">in</span> <span class="n">donor</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                     <span class="k">if</span> <span class="n">proj_name</span> <span class="o">!=</span> <span class="n">chosen_project</span> <span class="ow">and</span> <span class="n">proj_donation</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">change</span> <span class="o">=</span> <span class="n">to_distribute</span> <span class="o">*</span> <span class="n">proj_donation</span> <span class="o">/</span> <span class="n">total</span>
+                        <span class="n">change</span> <span class="o">=</span> <span class="n">frac</span><span class="p">(</span><span class="n">to_distribute</span> <span class="o">*</span> <span class="n">proj_donation</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">change</span> <span class="o">&lt;</span> <span class="mf">1e-14</span><span class="p">:</span>
+                            <span class="n">change</span> <span class="o">=</span> <span class="mi">1</span>
                         <span class="n">donor</span><span class="p">[</span><span class="n">proj_name</span><span class="p">]</span> <span class="o">-=</span> <span class="n">change</span>
-                        <span class="n">donor</span><span class="p">[</span><span class="n">chosen_project</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span>
-                            <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">change</span> <span class="o">*</span> <span class="mi">100000000000000</span><span class="p">)</span>
-                            <span class="o">/</span> <span class="mi">100000000000000</span>  <span class="c1"># TODO: What is this??</span>
-                        <span class="p">)</span>
+                        <span class="n">donor</span><span class="p">[</span><span class="n">chosen_project</span><span class="p">]</span> <span class="o">+=</span> <span class="n">frac</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">change</span> <span class="o">*</span> <span class="mi">100000000000000</span><span class="p">),</span> <span class="mi">100000000000000</span><span class="p">)</span>
 
         <span class="c1"># Recalculate the support ratio</span>
         <span class="n">total_support</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">donor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">chosen_project</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">donor</span> <span class="ow">in</span> <span class="n">donors</span><span class="p">)</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">total_support</span> <span class="o">/</span> <span class="n">project_cost</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">frac</span><span class="p">(</span><span class="n">total_support</span><span class="p">,</span> <span class="n">project_cost</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">num_loop_run</span> <span class="o">&gt;</span> <span class="mi">10000</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;The while loop of the minimal_transfer function ran for too long. This can be due to&quot;</span>
+                               <span class="s2">&quot; issues with floating point arithmetic.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">True</span>
 
 
