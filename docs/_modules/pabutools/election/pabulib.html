@@ -34,7 +34,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script src="../../../_static/documentation_options.js?v=a1e11e36"></script>
+    <script src="../../../_static/documentation_options.js?v=d8c5a152"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
@@ -364,24 +364,27 @@ document.write(`
             <span class="k">if</span> <span class="n">vote_type</span> <span class="o">==</span> <span class="s2">&quot;approval&quot;</span><span class="p">:</span>
                 <span class="n">ballot</span> <span class="o">=</span> <span class="n">ApprovalBallot</span><span class="p">()</span>
                 <span class="k">for</span> <span class="n">project_name</span> <span class="ow">in</span> <span class="n">ballot_meta</span><span class="p">[</span><span class="s2">&quot;vote&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
-                    <span class="n">ballot</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">get_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">project_name</span><span class="p">:</span>
+                        <span class="n">ballot</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">get_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">))</span>
                 <span class="n">ballot_meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;vote&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">vote_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;scoring&quot;</span><span class="p">,</span> <span class="s2">&quot;cumulative&quot;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">vote_type</span> <span class="o">==</span> <span class="s2">&quot;scoring&quot;</span><span class="p">:</span>
                     <span class="n">ballot</span> <span class="o">=</span> <span class="n">CardinalBallot</span><span class="p">()</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">ballot</span> <span class="o">=</span> <span class="n">CumulativeBallot</span><span class="p">()</span>
-                <span class="n">points</span> <span class="o">=</span> <span class="n">ballot_meta</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">project_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ballot_meta</span><span class="p">[</span><span class="s2">&quot;vote&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)):</span>
-                    <span class="n">ballot</span><span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">get_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">)]</span> <span class="o">=</span> <span class="n">str_as_frac</span><span class="p">(</span>
-                        <span class="n">points</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                    <span class="p">)</span>
-                <span class="n">ballot_meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;vote&quot;</span><span class="p">)</span>
-                <span class="n">ballot_meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;points&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;points&quot;</span> <span class="ow">in</span> <span class="n">ballot_meta</span><span class="p">:</span>  <span class="c1"># if not, the ballot should be empty</span>
+                    <span class="n">points</span> <span class="o">=</span> <span class="n">ballot_meta</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">project_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ballot_meta</span><span class="p">[</span><span class="s2">&quot;vote&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)):</span>
+                        <span class="n">ballot</span><span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">get_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">)]</span> <span class="o">=</span> <span class="n">str_as_frac</span><span class="p">(</span>
+                            <span class="n">points</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                        <span class="p">)</span>
+                    <span class="n">ballot_meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;vote&quot;</span><span class="p">)</span>
+                    <span class="n">ballot_meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;points&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">vote_type</span> <span class="o">==</span> <span class="s2">&quot;ordinal&quot;</span><span class="p">:</span>
                 <span class="n">ballot</span> <span class="o">=</span> <span class="n">OrdinalBallot</span><span class="p">()</span>
                 <span class="k">for</span> <span class="n">project_name</span> <span class="ow">in</span> <span class="n">ballot_meta</span><span class="p">[</span><span class="s2">&quot;vote&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
-                    <span class="n">ballot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">get_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">project_name</span><span class="p">:</span>
+                        <span class="n">ballot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">get_project</span><span class="p">(</span><span class="n">project_name</span><span class="p">))</span>
                 <span class="n">ballot_meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;vote&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
