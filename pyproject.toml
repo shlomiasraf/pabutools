@@ -40,7 +40,7 @@ dev = [
     "unittest2",
     "parameterized",
     "sphinx-toolbox",
-    "enum_tools"
+    "enum-tools"
 ]
 
 [project.urls]

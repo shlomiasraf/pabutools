@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script src="../../../_static/documentation_options.js?v=d8c5a152"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pabutools/visualisation/visualisation';</script>
@@ -323,8 +323,10 @@ document.write(`
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">template</span> <span class="o">=</span> <span class="n">ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;./templates/mes_round_analysis_template.html&#39;</span><span class="p">)</span> 
-    <span class="n">page_summary_template</span> <span class="o">=</span> <span class="n">ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;./templates/mes_page_summary_template.html&#39;</span><span class="p">)</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s2">&quot;./templates/mes_round_analysis_template.html&quot;</span><span class="p">)</span>
+    <span class="n">page_summary_template</span> <span class="o">=</span> <span class="n">ENV</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span>
+        <span class="s2">&quot;./templates/mes_page_summary_template.html&quot;</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">outcome</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">=</span> <span class="n">profile</span>
@@ -332,7 +334,11 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outcome</span> <span class="o">=</span> <span class="n">outcome</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">outcome</span><span class="o">.</span><span class="n">details</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span> <span class="o">=</span> <span class="p">[</span><span class="n">iteration</span> <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="n">outcome</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">iterations</span> <span class="k">if</span> <span class="n">iteration</span><span class="o">.</span><span class="n">selected_project</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">iteration</span>
+            <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="n">outcome</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">iterations</span>
+            <span class="k">if</span> <span class="n">iteration</span><span class="o">.</span><span class="n">selected_project</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">were_projects_selected</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">were_projects_selected</span> <span class="o">=</span> <span class="kc">False</span>
@@ -357,11 +363,11 @@ document.write(`
         <span class="n">last_iteration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
             <span class="n">current_iteration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">next_iteration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">next_iteration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
             <span class="nb">round</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
             <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;_current_iteration&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_iteration</span>
             <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">name</span>
-            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">name</span> 
+            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">name</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">p</span><span class="o">.</span><span class="n">affordability</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">get_all_projects</span><span class="p">()</span>
@@ -376,17 +382,43 @@ document.write(`
 
             <span class="c1"># Statistics for Page Summary page</span>
             <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;cost&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">cost</span>
-            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;totalvotes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span><span class="p">)</span>
-            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;initial_voter_funding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">initial_budget_per_voter</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span><span class="p">)</span>
+            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;totalvotes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span>
+            <span class="p">)</span>
+            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;initial_voter_funding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">initial_budget_per_voter</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span>
+            <span class="p">)</span>
             <span class="n">unsorted_funding_lost_per_round</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="n">r</span><span class="p">:</span> <span class="p">(</span>
-                    <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">voters_budget</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span><span class="p">))</span>       
-                    <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">[</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">voters_budget</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span><span class="p">))</span>   
-                <span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                    <span class="nb">float</span><span class="p">(</span>
+                        <span class="nb">sum</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">voters_budget</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+                            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="o">-</span> <span class="nb">float</span><span class="p">(</span>
+                        <span class="nb">sum</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">mes_iterations</span><span class="p">[</span><span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">voters_budget</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+                            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
             <span class="p">}</span>
-            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;funding_lost_per_round&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">unsorted_funding_lost_per_round</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
-            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;final_voter_funding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">current_iteration</span><span class="o">.</span><span class="n">voters_budget</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span><span class="p">))</span>
-           
+            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;funding_lost_per_round&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="nb">sorted</span><span class="p">(</span>
+                    <span class="n">unsorted_funding_lost_per_round</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span>
+                    <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="nb">round</span><span class="p">[</span><span class="s2">&quot;final_voter_funding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+                <span class="nb">sum</span><span class="p">(</span>
+                    <span class="n">current_iteration</span><span class="o">.</span><span class="n">voters_budget</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">current_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
             <span class="c1"># Get dropped projects</span>
             <span class="n">dropped_projects</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">current_iteration</span><span class="p">:</span>
@@ -517,9 +549,7 @@ document.write(`
                     <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">last_iteration</span><span class="o">.</span><span class="n">get_all_projects</span><span class="p">()</span>
                 <span class="p">},</span>
                 <span class="s2">&quot;cost&quot;</span><span class="p">:</span> <span class="n">last_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">cost</span><span class="p">,</span>
-                <span class="s2">&quot;totalvotes&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
-                    <span class="n">last_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span>
-                <span class="p">),</span>
+                <span class="s2">&quot;totalvotes&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">last_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span><span class="p">),</span>
                 <span class="s2">&quot;initial_voter_funding&quot;</span><span class="p">:</span> <span class="n">initial_budget_per_voter</span>
                 <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">last_iteration</span><span class="o">.</span><span class="n">selected_project</span><span class="o">.</span><span class="n">supporter_indices</span><span class="p">),</span>
                 <span class="s2">&quot;funding_lost_per_round&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span>
@@ -662,7 +692,9 @@ document.write(`
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">were_projects_selected</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No projects were selected in this election - therefore no visualisation will be created.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;No projects were selected in this election - therefore no visualisation will be created.&quot;</span>
+            <span class="p">)</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_calculate</span><span class="p">()</span>
         <span class="k">for</span> <span class="nb">round</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rounds</span><span class="p">:</span>
@@ -672,36 +704,56 @@ document.write(`
 
         <span class="c1"># Round by Round</span>
         <span class="n">round_analysis_page_output</span> <span class="o">=</span> <span class="n">MESVisualiser</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
-            <span class="n">election_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span> <span class="k">else</span> <span class="s2">&quot;No description provided.&quot;</span><span class="p">,</span> 
-            <span class="n">currency</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;currency&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;currency&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span> <span class="k">else</span> <span class="s2">&quot;CUR&quot;</span><span class="p">,</span>
-            <span class="n">rounds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rounds</span><span class="p">,</span> 
+            <span class="n">election_name</span><span class="o">=</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span>
+                <span class="k">else</span> <span class="s2">&quot;No description provided.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">currency</span><span class="o">=</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;currency&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;currency&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span>
+                <span class="k">else</span> <span class="s2">&quot;CUR&quot;</span>
+            <span class="p">),</span>
+            <span class="n">rounds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rounds</span><span class="p">,</span>
             <span class="n">projects</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">project_meta</span><span class="p">,</span>
             <span class="n">number_of_elected_projects</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outcome</span><span class="p">),</span>
             <span class="n">number_of_unelected_projects</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outcome</span><span class="p">),</span>
             <span class="n">spent</span><span class="o">=</span><span class="n">total_cost</span><span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outcome</span><span class="p">),</span>
             <span class="n">budget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;budget&quot;</span><span class="p">],</span>
             <span class="n">total_votes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;num_votes&quot;</span><span class="p">],</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">name</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Page Summary</span>
         <span class="n">summary_page_output</span> <span class="o">=</span> <span class="n">MESVisualiser</span><span class="o">.</span><span class="n">page_summary_template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
-            <span class="n">election_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span> <span class="k">else</span> <span class="s2">&quot;No description provided.&quot;</span><span class="p">,</span>
-            <span class="n">currency</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;currency&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;currency&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span> <span class="k">else</span> <span class="s2">&quot;CUR&quot;</span><span class="p">,</span> 
-            <span class="n">rounds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rounds</span><span class="p">,</span> 
+            <span class="n">election_name</span><span class="o">=</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span>
+                <span class="k">else</span> <span class="s2">&quot;No description provided.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">currency</span><span class="o">=</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;currency&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;currency&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span>
+                <span class="k">else</span> <span class="s2">&quot;CUR&quot;</span>
+            <span class="p">),</span>
+            <span class="n">rounds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rounds</span><span class="p">,</span>
             <span class="n">projects</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">project_meta</span><span class="p">,</span>
             <span class="n">number_of_elected_projects</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outcome</span><span class="p">),</span>
             <span class="n">number_of_unelected_projects</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outcome</span><span class="p">),</span>
             <span class="n">spent</span><span class="o">=</span><span class="n">total_cost</span><span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outcome</span><span class="p">),</span>
             <span class="n">budget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;budget&quot;</span><span class="p">],</span>
             <span class="n">total_votes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;num_votes&quot;</span><span class="p">],</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">name</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_folder_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_folder_path</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_folder_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_round_analysis.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_folder_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_round_analysis.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
             <span class="n">o</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">round_analysis_page_output</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_folder_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_summary.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_folder_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_summary.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
             <span class="n">o</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">summary_page_output</span><span class="p">)</span></div>
 </div>
 
@@ -741,10 +793,15 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">outcome</span><span class="o">.</span><span class="n">details</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rounds</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">project_votes</span> <span class="o">=</span> <span class="n">outcome</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">projects</span>
-        <span class="n">project_votes</span> <span class="o">=</span> <span class="p">{</span><span class="n">project_votes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">project_votes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">score</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">project_votes</span><span class="p">))}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">project_votes</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">project_votes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">project_votes</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">project_votes</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
-        
-    
+        <span class="n">project_votes</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">project_votes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">project_votes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">score</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">project_votes</span><span class="p">))</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_votes</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="n">project_votes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">project_votes</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">project_votes</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">}</span>
+
     <span class="k">def</span> <span class="nf">_calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate the data necessary for the visualisation.</span>
@@ -753,7 +810,9 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">rounds</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">current_round</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">rejected_projects</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">projects</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">projects</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">score</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">projects</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="o">.</span><span class="n">projects</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">score</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">projects</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">project</span><span class="o">.</span><span class="n">discarded</span><span class="p">:</span>
                 <span class="n">rejected_projects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -814,9 +873,19 @@ document.write(`
 
         <span class="c1"># Round by Round</span>
         <span class="n">round_analysis_page_output</span> <span class="o">=</span> <span class="n">GreedyWelfareVisualiser</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
-            <span class="n">election_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span> <span class="k">else</span> <span class="s2">&quot;No description provided.&quot;</span><span class="p">,</span>
-            <span class="n">currency</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;currency&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;currency&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span> <span class="k">else</span> <span class="s2">&quot;CUR&quot;</span><span class="p">,</span> 
-            <span class="n">projects_selected_or_rejected</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">):</span> <span class="p">(</span><span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outcome</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_votes</span><span class="o">.</span><span class="n">keys</span><span class="p">()}),</span>
+            <span class="n">election_name</span><span class="o">=</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span>
+                <span class="k">else</span> <span class="s2">&quot;No description provided.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">currency</span><span class="o">=</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;currency&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;currency&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span>
+                <span class="k">else</span> <span class="s2">&quot;CUR&quot;</span>
+            <span class="p">),</span>
+            <span class="n">projects_selected_or_rejected</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">):</span> <span class="p">(</span><span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outcome</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_votes</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+            <span class="p">),</span>
             <span class="n">project_votes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project_votes</span><span class="p">,</span>
             <span class="n">rounds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rounds</span><span class="p">,</span>
             <span class="n">projects</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">project_meta</span><span class="p">,</span>
@@ -825,11 +894,13 @@ document.write(`
             <span class="n">spent</span><span class="o">=</span><span class="n">total_cost</span><span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outcome</span><span class="p">),</span>
             <span class="n">budget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;budget&quot;</span><span class="p">],</span>
             <span class="n">total_votes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;num_votes&quot;</span><span class="p">],</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">name</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_folder_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_folder_path</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_folder_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_round_analysis.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_folder_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_round_analysis.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
             <span class="n">o</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">round_analysis_page_output</span><span class="p">)</span></div>
 </div>
 

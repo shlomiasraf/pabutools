@@ -269,18 +269,81 @@ measure provided. For more details, see the `equalshares.net <https://equalshare
 
 MES can significantly under-use the budget. The idea of running the rule for different
 initial budget for the voters has been proposed in the scientific literature as a fix
-for that problem. The next section will present general methods to do so. For optimal
-performances, one should use the following:
+for that problem. General exhaustion methods are presented further down this page. For
+improved performances, one should use the following:
 
 .. code-block:: python
 
     outcome = method_of_equal_shares(
         instance,
-        profile.as_multiprofile(), # Faster in general (typically if ballots repeat each others)
+        profile.as_multiprofile(), # Faster in general (typically if ballots repeat a lot)
         sat_class=Cost_Sat,
         voter_budget_increment=1 # As soon as not-None, mes iterated is used
     )
 
+
+Cumulative Support Transfer Voting Rule
+---------------------------------------
+
+:py:func:`~pabutools.rules.cstv.cstv`
+
+The `cstv` function implements the Cost-Sensitive Approval Voting algorithm for participatory budgeting. This rules takes as input cumulative profiles that are interpreted as donation in favour of the projects.
+
+The rule uses a combination of inner functions that need to be provided as arguments. Alternatively, pre-defined
+combinations can be used via the :py:class:`~pabutools.rules.cstv.CSTV_Combination`.
+
+.. code-block:: python
+
+    from pabutools.election import Instance, Project, CumulativeProfile, CumulativeBallot
+    from pabutools.rules import cstv
+
+    p1 = Project("A", 27)
+    p2 = Project("B", 30)
+    p3 = Project("C", 40)
+    instance = Instance([p1, p2, p3])
+    donors = CumulativeProfile(
+        [
+            CumulativeBallot({p1: 5, p2: 10, p3: 5}),
+            CumulativeBallot({p1: 10, p2: 10, p3: 0}),
+            CumulativeBallot({p1: 0, p2: 15, p3: 5}),
+            CumulativeBallot({p1: 0, p2: 0, p3: 20}),
+            CumulativeBallot({p1: 15, p2: 5, p3: 0}),
+        ]
+    )
+
+    # Using of the pre-defined combination:
+    from pabutools.rules import CSTV_Combination
+    cstv(instance, donors, CSTV_Combination.EWT)
+    cstv(instance, donors, CSTV_Combination.EWTC)
+    cstv(instance, donors, CSTV_Combination.EWT)
+    cstv(instance, donors, CSTV_Combination.MTC)
+
+    # Passing all the functions (this combination is EWT):
+    from pabutools.rules.cstv import (
+        select_project_ge, is_eligible_ge,
+        elimination_with_transfers, reverse_eliminations
+    )
+    cstv(
+        instance,
+        donors,
+        select_project_to_fund_func = select_project_ge,
+        eligible_projects_func = is_eligible_ge,
+        no_eligible_project_func = elimination_with_transfers,
+        exhaustiveness_postprocess_func = reverse_eliminations
+    )
+
+    # You can also specify the usual parameters:
+    from pabutools.rules import BudgetAllocation
+    from pabutools.tiebreaking import lexico_tie_breaking
+    cstv(
+        instance,
+        donors,
+        CSTV_Combination.EWT,
+        initial_budget_allocation = BudgetAllocation([Project("D", 10)]),
+        tie_breaking = lexico_tie_breaking,
+        resoluteness = True,  # Value 'False' is not yet supported
+        verbose = True
+    )
 
 Exhaustion Methods
 ------------------

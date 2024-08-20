@@ -73,9 +73,9 @@ def sequential_phragmen(
 
     Parameters
     ----------
-        instance: :py:class:`~pabutools.election.instance.Instance`
+        instance : :py:class:`~pabutools.election.instance.Instance`
             The instance.
-        profile : :py:class:`~pabutools.election.profile.profile.AbstractProfile`
+        profile : :py:class:`~pabutools.election.profile.approvalprofile.AbstractApprovalProfile`
             The profile.
         initial_loads: list[Numeric], optional
             A list of initial load, one per ballot in `profile`. By defaults, the initial load is `0`.

@@ -390,7 +390,10 @@ def priceable(
     else:
         status = mip_model.optimize(max_seconds=max_seconds)
 
-    if hasattr(OptimizationStatus, "INF_OR_UNBD") and status == OptimizationStatus.INF_OR_UNBD:
+    if (
+        hasattr(OptimizationStatus, "INF_OR_UNBD")
+        and status == OptimizationStatus.INF_OR_UNBD
+    ):
         # https://support.gurobi.com/hc/en-us/articles/4402704428177-How-do-I-resolve-the-error-Model-is-infeasible-or-unbounded
         # https://github.com/coin-or/python-mip/blob/1.15.0/mip/gurobi.py#L777
         # https://github.com/coin-or/python-mip/blob/1.16-pre/mip/gurobi.py#L778
@@ -421,8 +424,8 @@ def priceable(
         status=status,
         allocation=list(sorted([c for c in C if x_vars[c].x >= 0.99])),
         voter_budget=b.x,
-        relaxation_beta=relaxation.get_beta(mip_model)
-        if relaxation is not None
-        else None,
+        relaxation_beta=(
+            relaxation.get_beta(mip_model) if relaxation is not None else None
+        ),
         payment_functions=payment_functions,
     )

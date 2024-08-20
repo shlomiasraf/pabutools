@@ -106,7 +106,9 @@ def parse_pabulib_from_string(file_content: str) -> tuple[Instance, Profile]:
                     ballot = CumulativeBallot()
                 if "points" in ballot_meta:  # if not, the ballot should be empty
                     points = ballot_meta["points"].split(",")
-                    for index, project_name in enumerate(ballot_meta["vote"].split(",")):
+                    for index, project_name in enumerate(
+                        ballot_meta["vote"].split(",")
+                    ):
                         ballot[instance.get_project(project_name)] = str_as_frac(
                             points[index].strip()
                         )

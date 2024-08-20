@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Rules &#8212; Pabutools</title>
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script src="../_static/documentation_options.js?v=d8c5a152"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'usage/rules';</script>
@@ -319,6 +319,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#greedy-approximation-of-the-welfare-maximiser">Greedy Approximation of the Welfare Maximiser</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-phragmen-s-rule">Sequential Phragmén’s Rule</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#method-of-equal-shares-mes">Method of Equal Shares (MES)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cumulative-support-transfer-voting-rule">Cumulative Support Transfer Voting Rule</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exhaustion-methods">Exhaustion Methods</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-composition">Rule Composition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#details-for-the-budget-allocation-rule">Details for the Budget Allocation Rule</a></li>
@@ -583,13 +584,72 @@ measure provided. For more details, see the <a class="reference external" href="
 </div>
 <p>MES can significantly under-use the budget. The idea of running the rule for different
 initial budget for the voters has been proposed in the scientific literature as a fix
-for that problem. The next section will present general methods to do so. For optimal
-performances, one should use the following:</p>
+for that problem. General exhaustion methods are presented further down this page. For
+improved performances, one should use the following:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outcome</span> <span class="o">=</span> <span class="n">method_of_equal_shares</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">,</span>
-    <span class="n">profile</span><span class="o">.</span><span class="n">as_multiprofile</span><span class="p">(),</span> <span class="c1"># Faster in general (typically if ballots repeat each others)</span>
+    <span class="n">profile</span><span class="o">.</span><span class="n">as_multiprofile</span><span class="p">(),</span> <span class="c1"># Faster in general (typically if ballots repeat a lot)</span>
     <span class="n">sat_class</span><span class="o">=</span><span class="n">Cost_Sat</span><span class="p">,</span>
     <span class="n">voter_budget_increment</span><span class="o">=</span><span class="mi">1</span> <span class="c1"># As soon as not-None, mes iterated is used</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cumulative-support-transfer-voting-rule">
+<h2>Cumulative Support Transfer Voting Rule<a class="headerlink" href="#cumulative-support-transfer-voting-rule" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../reference/rules/index.html#pabutools.rules.cstv.cstv" title="pabutools.rules.cstv.cstv"><code class="xref py py-func docutils literal notranslate"><span class="pre">cstv()</span></code></a></p>
+<p>The <cite>cstv</cite> function implements the Cost-Sensitive Approval Voting algorithm for participatory budgeting. This rules takes as input cumulative profiles that are interpreted as donation in favour of the projects.</p>
+<p>The rule uses a combination of inner functions that need to be provided as arguments. Alternatively, pre-defined
+combinations can be used via the <a class="reference internal" href="../reference/rules/index.html#pabutools.rules.cstv.CSTV_Combination" title="pabutools.rules.cstv.CSTV_Combination"><code class="xref py py-class docutils literal notranslate"><span class="pre">CSTV_Combination</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pabutools.election</span> <span class="kn">import</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Project</span><span class="p">,</span> <span class="n">CumulativeProfile</span><span class="p">,</span> <span class="n">CumulativeBallot</span>
+<span class="kn">from</span> <span class="nn">pabutools.rules</span> <span class="kn">import</span> <span class="n">cstv</span>
+
+<span class="n">p1</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">27</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">instance</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">([</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">])</span>
+<span class="n">donors</span> <span class="o">=</span> <span class="n">CumulativeProfile</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">CumulativeBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="n">p3</span><span class="p">:</span> <span class="mi">5</span><span class="p">}),</span>
+        <span class="n">CumulativeBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="n">p3</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>
+        <span class="n">CumulativeBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="n">p3</span><span class="p">:</span> <span class="mi">5</span><span class="p">}),</span>
+        <span class="n">CumulativeBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">p3</span><span class="p">:</span> <span class="mi">20</span><span class="p">}),</span>
+        <span class="n">CumulativeBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="n">p2</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">p3</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Using of the pre-defined combination:</span>
+<span class="kn">from</span> <span class="nn">pabutools.rules</span> <span class="kn">import</span> <span class="n">CSTV_Combination</span>
+<span class="n">cstv</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">donors</span><span class="p">,</span> <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">EWT</span><span class="p">)</span>
+<span class="n">cstv</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">donors</span><span class="p">,</span> <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">EWTC</span><span class="p">)</span>
+<span class="n">cstv</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">donors</span><span class="p">,</span> <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">EWT</span><span class="p">)</span>
+<span class="n">cstv</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">donors</span><span class="p">,</span> <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">MTC</span><span class="p">)</span>
+
+<span class="c1"># Passing all the functions (this combination is EWT):</span>
+<span class="kn">from</span> <span class="nn">pabutools.rules.cstv</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">select_project_ge</span><span class="p">,</span> <span class="n">is_eligible_ge</span><span class="p">,</span>
+    <span class="n">elimination_with_transfers</span><span class="p">,</span> <span class="n">reverse_eliminations</span>
+<span class="p">)</span>
+<span class="n">cstv</span><span class="p">(</span>
+    <span class="n">instance</span><span class="p">,</span>
+    <span class="n">donors</span><span class="p">,</span>
+    <span class="n">select_project_to_fund_func</span> <span class="o">=</span> <span class="n">select_project_ge</span><span class="p">,</span>
+    <span class="n">eligible_projects_func</span> <span class="o">=</span> <span class="n">is_eligible_ge</span><span class="p">,</span>
+    <span class="n">no_eligible_project_func</span> <span class="o">=</span> <span class="n">elimination_with_transfers</span><span class="p">,</span>
+    <span class="n">exhaustiveness_postprocess_func</span> <span class="o">=</span> <span class="n">reverse_eliminations</span>
+<span class="p">)</span>
+
+<span class="c1"># You can also specify the usual parameters:</span>
+<span class="kn">from</span> <span class="nn">pabutools.rules</span> <span class="kn">import</span> <span class="n">BudgetAllocation</span>
+<span class="kn">from</span> <span class="nn">pabutools.tiebreaking</span> <span class="kn">import</span> <span class="n">lexico_tie_breaking</span>
+<span class="n">cstv</span><span class="p">(</span>
+    <span class="n">instance</span><span class="p">,</span>
+    <span class="n">donors</span><span class="p">,</span>
+    <span class="n">CSTV_Combination</span><span class="o">.</span><span class="n">EWT</span><span class="p">,</span>
+    <span class="n">initial_budget_allocation</span> <span class="o">=</span> <span class="n">BudgetAllocation</span><span class="p">([</span><span class="n">Project</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]),</span>
+    <span class="n">tie_breaking</span> <span class="o">=</span> <span class="n">lexico_tie_breaking</span><span class="p">,</span>
+    <span class="n">resoluteness</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Value &#39;False&#39; is not yet supported</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -829,6 +889,7 @@ The stored information can then be used for analytical purposes.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#greedy-approximation-of-the-welfare-maximiser">Greedy Approximation of the Welfare Maximiser</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-phragmen-s-rule">Sequential Phragmén’s Rule</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#method-of-equal-shares-mes">Method of Equal Shares (MES)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cumulative-support-transfer-voting-rule">Cumulative Support Transfer Voting Rule</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exhaustion-methods">Exhaustion Methods</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-composition">Rule Composition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#details-for-the-budget-allocation-rule">Details for the Budget Allocation Rule</a></li>
