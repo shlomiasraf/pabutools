@@ -4,8 +4,11 @@ on:
   workflow_dispatch
 
 jobs:
-  build:
+  build_docs_and_push:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout the repository
@@ -29,14 +32,12 @@ jobs:
 
     - name: Deploy docs to the repository
       run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "github-actions@github.com"
-        
-        git remote set-url origin https://COMSOC-Community:${{ secrets.GITHUB_TOKEN }}@github.com/COMSOC-Community/pabutools.git
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         
         # Assuming the built docs are in the /docs directory
         git add docs
-        git commit -m "Automatic Deploy documentation"
+        git commit -m "Bot: Auto-Generation of the docs/ folder" 
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub provides this token for auth
