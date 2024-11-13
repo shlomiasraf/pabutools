@@ -78,3 +78,12 @@ to add they yourself using to autodoc directives (take inspiration from the file
 
 If you want to help, check the `todos.txt` file, several todos are described there.
 
+## GitHub Workflow
+
+### Publishing on PyPI
+
+The pipeline between GitHub and PyPI is automatised. To push a new version do the following:
+- Update the `pyproject.toml` with the new version number.
+- Update the `pabutools/__init__.py` with the new version number.
+- On GitHub, create a new release tagged with the new version number (only admins can do that), on [this page](https://github.com/COMSOC-Community/pabutools/releases/new).
+- You're done, the new version of the package is automatically pushed to PyPI after the creation of a GitHub release.
