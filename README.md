@@ -1,8 +1,8 @@
 # Pabutools: PB as easy as [ABC](https://github.com/martinlackner/abcvoting)
 
 [![PyPI Status](https://img.shields.io/pypi/v/pabutools.svg)](https://pypi.python.org/pypi/pabutools)
-[![Build badge](https://github.com/pbvoting/pabutools/workflows/build/badge.svg?branch=main)](https://github.com/pbvoting/pabutools/actions/workflows/build.yml)
-[![codecov](https://codecov.io/gh/pbvoting/pabutools/branch/main/graphs/badge.svg)](https://codecov.io/gh/pbvoting/pabutools/tree/main)
+[![Build badge](https://github.com/comsoc-community/pabutools/workflows/build/badge.svg?branch=main)](https://github.com/comsoc-community/pabutools/actions/workflows/build.yml)
+[![codecov](https://codecov.io/gh/comsoc-community/pabutools/branch/main/graphs/badge.svg)](https://codecov.io/gh/comsoc-community/pabutools/tree/main)
 
 ## Overview
 
@@ -31,12 +31,12 @@ pip3 install pabutools
 
 ## Documentation
 
-The complete documentation is available [here](https://pbvoting.github.io/pabutools/).
+The complete documentation is available [here](https://comsoc-community.github.io/pabutools/).
 It includes
-* [installation instructions](https://pbvoting.github.io/pabutools/installation.html),
-* a [short guide](https://pbvoting.github.io/pabutools/quickstart.html) for a quick start,
-* a [complete guide](https://pbvoting.github.io/pabutools/usage/index.html) for more advanced usage, and
-* a [reference guide](https://pbvoting.github.io/pabutools/reference/index.html) to get all the details.
+* [installation instructions](https://comsoc-community.github.io/pabutools/installation.html),
+* a [short guide](https://comsoc-community.github.io/pabutools/quickstart.html) for a quick start,
+* a [complete guide](https://comsoc-community.github.io/pabutools/usage/index.html) for more advanced usage, and
+* a [reference guide](https://comsoc-community.github.io/pabutools/reference/index.html) to get all the details.
 
 ## Development
 
@@ -66,6 +66,7 @@ make html
 This will generate the documentation locally (in the folder `docs-source/build`). If you want the documentation 
 to also be updated when pushing, run:
 ```shell
+make githubclean
 make github
 ```
 
@@ -76,3 +77,4 @@ This means that if you create new class of functions that should appear in the d
 to add they yourself using to autodoc directives (take inspiration from the files in `docs-source/source`). 
 
 If you want to help, check the `todos.txt` file, several todos are described there.
+

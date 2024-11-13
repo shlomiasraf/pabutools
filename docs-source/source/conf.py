@@ -59,7 +59,7 @@ html_extra_path = [
 
 html_title = "Pabutools"
 html_theme_options = {
-    "repository_url": "https://github.com/pbvoting/pabutools",
+    "repository_url": "https://github.com/COMSOC-Community/pabutools",
     "use_repository_button": True,
 }
 html_context = {"default_mode": "light"}

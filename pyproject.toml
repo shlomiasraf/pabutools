@@ -44,5 +44,5 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/pbvoting/pabutools"
-"Bug Tracker" = "https://github.com/pbvoting/pabutools/issues"
+"Homepage" = "https://github.com/comsoc-community/pabutools"
+"Bug Tracker" = "https://github.com/comsoc-community/pabutools/issues"
