@@ -691,7 +691,7 @@ vote_type;approval
 rule;greedy
 date_begin;14.06.2017
 date_end;30.06.2017
-language;polish
+language;pl
 edition;4
 district;Ochota
 min_length;1
