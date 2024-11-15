@@ -35,7 +35,6 @@ def greedy_utilitarian_scheme(
     budget_allocation: BudgetAllocation,
     tie_breaking: TieBreakingRule,
     resoluteness: bool = True,
-    sat_bounds: dict[AbstractBallot, Numeric] | None = None,
     analytics: bool = False,
 ) -> BudgetAllocation | list[BudgetAllocation]:
     """
