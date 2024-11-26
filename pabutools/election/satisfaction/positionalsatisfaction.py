@@ -98,8 +98,8 @@ def borda_sat_func(ballot: AbstractOrdinalBallot, project: Project) -> int:
 class Additive_Borda_Sat(PositionalSatisfaction):
     """
     Additive Borda satisfaction. It can only be applied to ordinal ballots. It is equal to the sum of the Borda scores
-    of the selected projects in the ballots. The Borda score is the length of the ballot minus 1 plus the index of the
-    project in the ballot
+    of the selected projects in the ballots. The Borda score is the length of the ballot minus the index of the
+    project in the ballot, minus 1.
 
     Parameters
     ----------
