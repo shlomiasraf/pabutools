@@ -113,7 +113,7 @@ class AbstractProfile(ABC, Iterable[AbstractBallot]):
 
         Returns
         -------
-            py:class:`~pabutools.election.satisfaction.satisfactionmeasure.GroupSatisfactionMeasure`
+            :py:class:`~pabutools.election.satisfaction.satisfactionmeasure.GroupSatisfactionMeasure`
                 A satisfaction profile, that is, a collection of satisfaction measures for all the voters.
         """
 
