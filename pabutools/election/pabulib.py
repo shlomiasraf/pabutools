@@ -56,7 +56,7 @@ def parse_pabulib_from_string(file_content: str) -> tuple[Instance, Profile]:
     header = []
     reader = csv.reader(lines, delimiter=";")
     for row in reader:
-        if len(row) == 1 and len(row[0].strip()) == 0:
+        if len(row) == 0 or (len(row) == 1 and len(row[0].strip()) == 0):
             continue
         if str(row[0]).strip().lower() in ["meta", "projects", "votes"]:
             section = str(row[0]).strip().lower()
