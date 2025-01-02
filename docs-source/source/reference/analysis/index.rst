@@ -30,6 +30,18 @@ Justified Representation Axioms
 .. automodule:: pabutools.analysis.justifiedrepresentation
    :members:
 
+Priceability Axiom
+------------------
+
+.. automodule:: pabutools.analysis.priceability
+   :members:
+
+Stable-Priceability Axiom Relaxations
+-------------------------------------
+
+.. automodule:: pabutools.analysis.priceability_relaxation
+   :members:
+
 Properties Specific to the Method of Equal Shares
 -------------------------------------------------
 
