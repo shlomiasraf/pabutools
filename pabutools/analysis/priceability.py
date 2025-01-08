@@ -101,6 +101,11 @@ def validate_price_system(
                     f"allocation is not exhaustive {total} + {c.cost} = {total + c.cost} <= {instance.budget_limit}"
                 )
 
+    if round_cmp(b * profile.num_ballots(), instance.budget_limit, CHECK_ROUND_PRECISION) < 0:
+        errors["C0c"].append(
+            f"voters total money is less than instance budget {b * profile.num_ballots()} < {instance.budget_limit}"
+        )
+
     for idx, i in enumerate(N):
         for c in C:
             if c not in i and pf[idx][c] != 0:
@@ -294,6 +299,9 @@ def priceable(
     if voter_budget is not None:
         mip_model += b == voter_budget
 
+    # prevent empty allocation as a result
+    mip_model += b * profile.num_ballots() >= instance.budget_limit
+
     # payment functions
     p_vars = [
         {c: mip_model.add_var(name=f"p_{idx}_{c.name}") for c in C}
@@ -324,9 +332,6 @@ def priceable(
             mip_model += (
                 cost_total + c.cost + x_vars[c] * INF >= instance.budget_limit + 1
             )
-    elif budget_allocation is None:
-        # prevent empty allocation as a result
-        mip_model += b * profile.num_ballots() >= instance.budget_limit
 
     # (C1) voter can pay only for projects they approve of
     for idx, i in enumerate(N):

@@ -100,7 +100,7 @@ def approval_to_preflib(
     ----------
         instance: :py:class:`~pabutools.election.instance.Instance`
             The Pabutools instance used to define the PrefLib one.
-        profile: py:class:`~pabutools.election.profile.approvalprofile.AbstractApprovalProfile`
+        profile: :py:class:`~pabutools.election.profile.approvalprofile.AbstractApprovalProfile`
             The Pabutools profile of approval ballots.
         file_path: str
             The path to the file containing the details of the instance.
@@ -178,7 +178,7 @@ def cardinal_to_preflib(
     ----------
         instance: :py:class:`~pabutools.election.instance.Instance`
             The Pabutools instance used to define the PrefLib one.
-        profile: py:class:`~pabutools.election.profile.cardinalprofile.AbstractCardinalProfile`
+        profile: :py:class:`~pabutools.election.profile.cardinalprofile.AbstractCardinalProfile`
             The Pabutools profile of approval ballots.
         file_path: str
             The path to the file containing the details of the instance.
@@ -251,7 +251,7 @@ def ordinal_to_preflib(
     ----------
         instance: :py:class:`~pabutools.election.instance.Instance`
             The Pabutools instance used to define the PrefLib one.
-        profile: py:class:`~pabutools.election.profile.ordinalprofile.AbstractOrdinalProfile`
+        profile: :py:class:`~pabutools.election.profile.ordinalprofile.AbstractOrdinalProfile`
             The Pabutools profile of approval ballots.
         file_path: str
             The path to the file containing the details of the instance.

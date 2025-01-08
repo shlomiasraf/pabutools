@@ -18,7 +18,7 @@ and any potential additional information. Here's an example:
 
     instance = Instance()   # It accepts several optional parameters
     p1 = Project("p1", 1)   # The constructor requires the name and cost of the project
-    instance.add(p1)   ## Set methods are used to add/remove projects from an instance
+    instance.add(p1)   # Set methods are used to add/remove projects from an instance
     p2 = Project("p2", 1)
     instance.add(p2)
     p3 = Project("p3", 3)

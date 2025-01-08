@@ -214,12 +214,14 @@ def is_strong_EJR_cardinal(
     instance: Instance,
     profile: AbstractCardinalProfile,
     budget_allocation: Collection[Project],
-    sat_class: type[SatisfactionMeasure] = Additive_Cardinal_Sat,
+    sat_class: type[SatisfactionMeasure] | None = None,
 ) -> bool:
     """
     Test if a budget allocation satisfies strong EJR for the given instance and the given profile
     of cardinal ballots.
     """
+    if sat_class is None:
+        sat_class = Additive_Cardinal_Sat
     for group, project_set in cohesive_groups(instance, profile):
         all_agents_sat = True
         threshold = sum(min(b[p] for b in group) for p in project_set)
@@ -237,13 +239,15 @@ def is_EJR_cardinal(
     instance: Instance,
     profile: AbstractCardinalProfile,
     budget_allocation: Collection[Project],
-    sat_class: type[SatisfactionMeasure] = Additive_Cardinal_Sat,
+    sat_class: type[SatisfactionMeasure] | None = None,
     up_to_func: Callable[[Iterable[Numeric]], Numeric] | None = None,
 ) -> bool:
     """
     Test if a budget allocation satisfies EJR for the given instance and the given profile of
     cardinal ballots.
     """
+    if sat_class is None:
+        sat_class = Additive_Cardinal_Sat
     for group, project_set in cohesive_groups(instance, profile):
         one_agent_sat = False
         threshold = sum(min(b[p] for b in group) for p in project_set)
