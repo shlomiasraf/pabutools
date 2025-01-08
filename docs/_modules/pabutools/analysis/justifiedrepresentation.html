@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,17 +26,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../../_static/documentation_options.js?v=59ca8804"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
@@ -177,9 +177,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -279,14 +284,14 @@
                 <article class="bd-article">
                   
   <h1>Source code for pabutools.analysis.justifiedrepresentation</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span>
 
-<span class="kn">from</span> <span class="nn">pabutools.utils</span> <span class="kn">import</span> <span class="n">Numeric</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pabutools.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Numeric</span>
 
-<span class="kn">from</span> <span class="nn">pabutools.analysis.cohesiveness</span> <span class="kn">import</span> <span class="n">cohesive_groups</span><span class="p">,</span> <span class="n">is_large_enough</span>
-<span class="kn">from</span> <span class="nn">pabutools.election</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pabutools.analysis.cohesiveness</span><span class="w"> </span><span class="kn">import</span> <span class="n">cohesive_groups</span><span class="p">,</span> <span class="n">is_large_enough</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pabutools.election</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Instance</span><span class="p">,</span>
     <span class="n">AbstractApprovalProfile</span><span class="p">,</span>
     <span class="n">Project</span><span class="p">,</span>
@@ -297,12 +302,12 @@
     <span class="n">total_cost</span><span class="p">,</span>
     <span class="n">AbstractProfile</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pabutools.utils</span> <span class="kn">import</span> <span class="n">powerset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pabutools.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">powerset</span>
 
 
 <div class="viewcode-block" id="is_in_core">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_in_core">[docs]</a>
-<span class="k">def</span> <span class="nf">is_in_core</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_in_core</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractProfile</span><span class="p">,</span>
     <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">],</span>
@@ -342,7 +347,7 @@
 
 <div class="viewcode-block" id="is_strong_EJR_approval">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_strong_EJR_approval">[docs]</a>
-<span class="k">def</span> <span class="nf">is_strong_EJR_approval</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_strong_EJR_approval</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractApprovalProfile</span><span class="p">,</span>
     <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">],</span>
@@ -367,7 +372,7 @@
 
 <div class="viewcode-block" id="is_EJR_approval">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_EJR_approval">[docs]</a>
-<span class="k">def</span> <span class="nf">is_EJR_approval</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_EJR_approval</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractApprovalProfile</span><span class="p">,</span>
     <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">],</span>
@@ -400,7 +405,7 @@
 
 <div class="viewcode-block" id="is_EJR_any_approval">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_EJR_any_approval">[docs]</a>
-<span class="k">def</span> <span class="nf">is_EJR_any_approval</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_EJR_any_approval</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractApprovalProfile</span><span class="p">,</span>
     <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">],</span>
@@ -422,7 +427,7 @@
 
 <div class="viewcode-block" id="is_EJR_one_approval">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_EJR_one_approval">[docs]</a>
-<span class="k">def</span> <span class="nf">is_EJR_one_approval</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_EJR_one_approval</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractApprovalProfile</span><span class="p">,</span>
     <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">],</span>
@@ -444,7 +449,7 @@
 
 <div class="viewcode-block" id="is_PJR_approval">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_PJR_approval">[docs]</a>
-<span class="k">def</span> <span class="nf">is_PJR_approval</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_PJR_approval</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractApprovalProfile</span><span class="p">,</span>
     <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">],</span>
@@ -473,7 +478,7 @@
 
 <div class="viewcode-block" id="is_PJR_any_approval">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_PJR_any_approval">[docs]</a>
-<span class="k">def</span> <span class="nf">is_PJR_any_approval</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_PJR_any_approval</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractApprovalProfile</span><span class="p">,</span>
     <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">],</span>
@@ -495,7 +500,7 @@
 
 <div class="viewcode-block" id="is_PJR_one_approval">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_PJR_one_approval">[docs]</a>
-<span class="k">def</span> <span class="nf">is_PJR_one_approval</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_PJR_one_approval</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractApprovalProfile</span><span class="p">,</span>
     <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">],</span>
@@ -517,16 +522,18 @@
 
 <div class="viewcode-block" id="is_strong_EJR_cardinal">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_strong_EJR_cardinal">[docs]</a>
-<span class="k">def</span> <span class="nf">is_strong_EJR_cardinal</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_strong_EJR_cardinal</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractCardinalProfile</span><span class="p">,</span>
     <span class="n">budget_allocation</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
-    <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">]</span> <span class="o">=</span> <span class="n">Additive_Cardinal_Sat</span><span class="p">,</span>
+    <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Test if a budget allocation satisfies strong EJR for the given instance and the given profile</span>
 <span class="sd">    of cardinal ballots.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">sat_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sat_class</span> <span class="o">=</span> <span class="n">Additive_Cardinal_Sat</span>
     <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">project_set</span> <span class="ow">in</span> <span class="n">cohesive_groups</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">profile</span><span class="p">):</span>
         <span class="n">all_agents_sat</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">threshold</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">group</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">project_set</span><span class="p">)</span>
@@ -543,17 +550,19 @@
 
 <div class="viewcode-block" id="is_EJR_cardinal">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_EJR_cardinal">[docs]</a>
-<span class="k">def</span> <span class="nf">is_EJR_cardinal</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_EJR_cardinal</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractCardinalProfile</span><span class="p">,</span>
     <span class="n">budget_allocation</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
-    <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">]</span> <span class="o">=</span> <span class="n">Additive_Cardinal_Sat</span><span class="p">,</span>
+    <span class="n">sat_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">SatisfactionMeasure</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">up_to_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Numeric</span><span class="p">]],</span> <span class="n">Numeric</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Test if a budget allocation satisfies EJR for the given instance and the given profile of</span>
 <span class="sd">    cardinal ballots.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">sat_class</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sat_class</span> <span class="o">=</span> <span class="n">Additive_Cardinal_Sat</span>
     <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">project_set</span> <span class="ow">in</span> <span class="n">cohesive_groups</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">profile</span><span class="p">):</span>
         <span class="n">one_agent_sat</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">threshold</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">group</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">project_set</span><span class="p">)</span>
@@ -577,7 +586,7 @@
 
 <div class="viewcode-block" id="is_EJR_any_cardinal">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_EJR_any_cardinal">[docs]</a>
-<span class="k">def</span> <span class="nf">is_EJR_any_cardinal</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_EJR_any_cardinal</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractCardinalProfile</span><span class="p">,</span>
     <span class="n">budget_allocation</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
@@ -594,7 +603,7 @@
 
 <div class="viewcode-block" id="is_EJR_one_cardinal">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_EJR_one_cardinal">[docs]</a>
-<span class="k">def</span> <span class="nf">is_EJR_one_cardinal</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_EJR_one_cardinal</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractCardinalProfile</span><span class="p">,</span>
     <span class="n">budget_allocation</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
@@ -611,7 +620,7 @@
 
 <div class="viewcode-block" id="is_PJR_cardinal">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_PJR_cardinal">[docs]</a>
-<span class="k">def</span> <span class="nf">is_PJR_cardinal</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_PJR_cardinal</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractCardinalProfile</span><span class="p">,</span>
     <span class="n">budget_allocation</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
@@ -639,7 +648,7 @@
 
 <div class="viewcode-block" id="is_PJR_any_cardinal">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_PJR_any_cardinal">[docs]</a>
-<span class="k">def</span> <span class="nf">is_PJR_any_cardinal</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_PJR_any_cardinal</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractCardinalProfile</span><span class="p">,</span>
     <span class="n">budget_allocation</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
@@ -656,7 +665,7 @@
 
 <div class="viewcode-block" id="is_PJR_one_cardinal">
 <a class="viewcode-back" href="../../../reference/analysis/index.html#pabutools.analysis.justifiedrepresentation.is_PJR_one_cardinal">[docs]</a>
-<span class="k">def</span> <span class="nf">is_PJR_one_cardinal</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_PJR_one_cardinal</span><span class="p">(</span>
     <span class="n">instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
     <span class="n">profile</span><span class="p">:</span> <span class="n">AbstractCardinalProfile</span><span class="p">,</span>
     <span class="n">budget_allocation</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Project</span><span class="p">],</span>
@@ -731,8 +740,8 @@ By Simon Rey, Grzegorz Pierczyński, Markus Utke and Piotr Skowron
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

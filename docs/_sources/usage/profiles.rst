@@ -82,7 +82,7 @@ It inherits from the :py:class:`~pabutools.election.profile.profile.Profile` cla
 
     p = [Project("p{}".format(i), 1) for i in range(10)]
     b1 = CardinalBallot({p[1]: 5, p[2]: 0})   # Cardinal ballot scoring 5 for p1 and 0 for p2
-    b1.append(p[1])   # The ballot becomes p0 > p4 > p2 > p1
+    b1.update({p[4]: 3})   # The ballot now additionally scores 3 for p4
     profile = CardinalProfile()
     profile.append(b1)
 

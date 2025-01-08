@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,17 +27,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=59ca8804"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -178,9 +178,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -432,7 +437,7 @@ correct type depending on the metadata in the file.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<a class="reference internal" href="instance.html#pabutools.election.instance.Instance" title="pabutools.election.instance.Instance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Instance</span></code></a>) – The Pabutools instance used to define the PrefLib one.</p></li>
-<li><p><strong>profile</strong> (py:class:<cite>~pabutools.election.profile.approvalprofile.AbstractApprovalProfile</cite>) – The Pabutools profile of approval ballots.</p></li>
+<li><p><strong>profile</strong> (<a class="reference internal" href="profile.html#pabutools.election.profile.approvalprofile.AbstractApprovalProfile" title="pabutools.election.profile.approvalprofile.AbstractApprovalProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractApprovalProfile</span></code></a>) – The Pabutools profile of approval ballots.</p></li>
 <li><p><strong>file_path</strong> (<em>str</em>) – The path to the file containing the details of the instance.</p></li>
 <li><p><strong>file_name</strong> (<em>str</em>) – The name to the file containing the details of the instance.</p></li>
 <li><p><strong>modification_type</strong> (<em>str</em>) – The modification type as described by the PrefLib documentation.</p></li>
@@ -456,7 +461,7 @@ correct type depending on the metadata in the file.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<a class="reference internal" href="instance.html#pabutools.election.instance.Instance" title="pabutools.election.instance.Instance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Instance</span></code></a>) – The Pabutools instance used to define the PrefLib one.</p></li>
-<li><p><strong>profile</strong> (py:class:<cite>~pabutools.election.profile.cardinalprofile.AbstractCardinalProfile</cite>) – The Pabutools profile of approval ballots.</p></li>
+<li><p><strong>profile</strong> (<a class="reference internal" href="profile.html#pabutools.election.profile.cardinalprofile.AbstractCardinalProfile" title="pabutools.election.profile.cardinalprofile.AbstractCardinalProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractCardinalProfile</span></code></a>) – The Pabutools profile of approval ballots.</p></li>
 <li><p><strong>file_path</strong> (<em>str</em>) – The path to the file containing the details of the instance.</p></li>
 <li><p><strong>file_name</strong> (<em>str</em>) – The name to the file containing the details of the instance.</p></li>
 <li><p><strong>modification_type</strong> (<em>str</em>) – The modification type as described by the PrefLib documentation.</p></li>
@@ -480,7 +485,7 @@ correct type depending on the metadata in the file.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<a class="reference internal" href="instance.html#pabutools.election.instance.Instance" title="pabutools.election.instance.Instance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Instance</span></code></a>) – The Pabutools instance used to define the PrefLib one.</p></li>
-<li><p><strong>profile</strong> (py:class:<cite>~pabutools.election.profile.ordinalprofile.AbstractOrdinalProfile</cite>) – The Pabutools profile of approval ballots.</p></li>
+<li><p><strong>profile</strong> (<a class="reference internal" href="profile.html#pabutools.election.profile.ordinalprofile.AbstractOrdinalProfile" title="pabutools.election.profile.ordinalprofile.AbstractOrdinalProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractOrdinalProfile</span></code></a>) – The Pabutools profile of approval ballots.</p></li>
 <li><p><strong>file_path</strong> (<em>str</em>) – The path to the file containing the details of the instance.</p></li>
 <li><p><strong>file_name</strong> (<em>str</em>) – The name to the file containing the details of the instance.</p></li>
 <li><p><strong>modification_type</strong> (<em>str</em>) – The modification type as described by the PrefLib documentation.</p></li>
@@ -599,8 +604,8 @@ By Simon Rey, Grzegorz Pierczyński, Markus Utke and Piotr Skowron
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

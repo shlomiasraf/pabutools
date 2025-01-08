@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,17 +27,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../_static/documentation_options.js?v=59ca8804"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
@@ -178,9 +178,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -327,6 +332,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#justified-representation">Justified Representation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#priceability">Priceability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-priceability-relaxations">Stable-Priceability Relaxations</a></li>
 </ul>
             </nav>
         </div>
@@ -340,7 +346,7 @@
                   
   <section id="analysis">
 <h1>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h1>
-<p>We also provide tools to anaylse the outcome—the budget allocation. They are mostly collected
+<p>We also provide tools to analyse the outcome — the budget allocation. They are mostly collected
 in the <a class="reference internal" href="../reference/analysis/index.html#module-pabutools.analysis" title="pabutools.analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code></a> module.</p>
 <section id="justified-representation">
 <h2>Justified Representation<a class="headerlink" href="#justified-representation" title="Link to this heading">#</a></h2>
@@ -348,6 +354,77 @@ in the <a class="reference internal" href="../reference/analysis/index.html#modu
 </section>
 <section id="priceability">
 <h2>Priceability<a class="headerlink" href="#priceability" title="Link to this heading">#</a></h2>
+<p>Pabutools enables searching for price systems that support a given budget allocation.
+This allows users to to verify whether an allocation is priceable / stable-priceable.</p>
+<p>To achieve this, the <a class="reference internal" href="../reference/analysis/index.html#pabutools.analysis.priceability.priceable" title="pabutools.analysis.priceability.priceable"><code class="xref py py-func docutils literal notranslate"><span class="pre">priceable()</span></code></a> function is used.
+It returns a <a class="reference internal" href="../reference/analysis/index.html#pabutools.analysis.priceability.PriceableResult" title="pabutools.analysis.priceability.PriceableResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">PriceableResult</span></code></a>, which includes the allocation and a corresponding price system, among other details.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pabutools.election</span><span class="w"> </span><span class="kn">import</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Project</span><span class="p">,</span> <span class="n">ApprovalProfile</span><span class="p">,</span> <span class="n">ApprovalBallot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pabutools.analysis.priceability</span><span class="w"> </span><span class="kn">import</span> <span class="n">priceable</span>
+
+<span class="n">p1</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s1">&#39;p1&#39;</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s1">&#39;p2&#39;</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s1">&#39;p3&#39;</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">p4</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s1">&#39;p4&#39;</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">p5</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s1">&#39;p5&#39;</span><span class="p">,</span> <span class="n">cost</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">instance</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">([</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">],</span> <span class="n">budget_limit</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+
+<span class="n">b1</span> <span class="o">=</span> <span class="n">ApprovalBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">})</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">ApprovalBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">})</span>
+<span class="n">b3</span> <span class="o">=</span> <span class="n">ApprovalBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">})</span>
+<span class="n">b4</span> <span class="o">=</span> <span class="n">ApprovalBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p5</span><span class="p">})</span>
+<span class="n">b5</span> <span class="o">=</span> <span class="n">ApprovalBallot</span><span class="p">({</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p5</span><span class="p">})</span>
+<span class="n">profile</span> <span class="o">=</span> <span class="n">ApprovalProfile</span><span class="p">([</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">b3</span><span class="p">,</span> <span class="n">b4</span><span class="p">,</span> <span class="n">b5</span><span class="p">])</span>
+
+<span class="n">allocation</span> <span class="o">=</span> <span class="p">[</span><span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">]</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">priceable</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">allocation</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>       <span class="c1"># Check if allocation is priceable - returns True</span>
+<span class="n">result</span><span class="o">.</span><span class="n">voter_budget</span>     <span class="c1"># Result contains the supporting price system</span>
+<span class="n">result</span><span class="o">.</span><span class="n">payment_functions</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">priceable</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">allocation</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>       <span class="c1"># Check if allocation is stable-priceable - returns False</span>
+</pre></div>
+</div>
+<p>Additionally, it is possible to search for ready-made budget allocations that satisfy priceability / stable-priceability.
+To do this, simply omit the allocation parameter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">priceable</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">allocation</span>       <span class="c1"># returns [p1, p2, p3]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The concept of the (stable) priceability axiom is tied to Linear Programming.</p>
+<p>Determining whether an allocation is (stable) priceable requires solving a Linear Program.
+Searching for allocations that are (stable) priceable requires solving an Integer Linear Program.</p>
+<p>The implementation uses the <cite>python-mip</cite> package which provides flexibility in choosing an ILP solver.</p>
+<p>For smaller instances the default ILP solver should suffice. However, for larger instances (in particular real life instances from <a class="reference external" href="http://pabulib.org">pabulib</a>), <a class="reference external" href="https://www.gurobi.com/">Gurobi solver</a> performs significantly better.</p>
+<p>If you have access to a Gurobi license (e.g. as an academic or graduate student), it is highly recommended to use it.</p>
+</div>
+</section>
+<section id="stable-priceability-relaxations">
+<h2>Stable-Priceability Relaxations<a class="headerlink" href="#stable-priceability-relaxations" title="Link to this heading">#</a></h2>
+<p>Since stable-priceability is not always satisfiable, several relaxations of the stability condition have been implemented.</p>
+<p>By using a <a class="reference internal" href="../reference/analysis/index.html#pabutools.analysis.priceability_relaxation.Relaxation" title="pabutools.analysis.priceability_relaxation.Relaxation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Relaxation</span></code></a> class instance with <a class="reference internal" href="../reference/analysis/index.html#pabutools.analysis.priceability.priceable" title="pabutools.analysis.priceability.priceable"><code class="xref py py-func docutils literal notranslate"><span class="pre">priceable()</span></code></a>, it is possible to measure how close an allocation is to satisfying the stability condition.
+This, in turn, gives the ability to compare allocations based on their stability.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pabutools.analysis.priceability_relaxation</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMul</span>
+
+<span class="n">allocation_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p5</span><span class="p">]</span>
+<span class="n">allocation_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">]</span>
+
+<span class="n">result_1</span> <span class="o">=</span> <span class="n">priceable</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">allocation_1</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">relaxation</span><span class="o">=</span><span class="n">MinMul</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">profile</span><span class="p">))</span>
+<span class="n">result_1</span><span class="o">.</span><span class="n">relaxation_beta</span>
+
+<span class="n">result_2</span> <span class="o">=</span> <span class="n">priceable</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">allocation_2</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">relaxation</span><span class="o">=</span><span class="n">MinMul</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">profile</span><span class="p">))</span>
+<span class="n">result_2</span><span class="o">.</span><span class="n">relaxation_beta</span>
+
+<span class="k">if</span> <span class="n">result_1</span><span class="o">.</span><span class="n">relaxation_beta</span> <span class="o">&lt;</span> <span class="n">result_2</span><span class="o">.</span><span class="n">relaxation_beta</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allocation_1 is considered more stable&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allocation_2 is considered more stable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For details about the implemented relaxations see <a class="reference internal" href="../reference/analysis/index.html#module-pabutools.analysis.priceability_relaxation" title="pabutools.analysis.priceability_relaxation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">priceability_relaxation</span></code></a>.</p>
 </section>
 </section>
 
@@ -399,6 +476,7 @@ in the <a class="reference internal" href="../reference/analysis/index.html#modu
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#justified-representation">Justified Representation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#priceability">Priceability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-priceability-relaxations">Stable-Priceability Relaxations</a></li>
 </ul>
   </nav></div>
 
@@ -447,8 +525,8 @@ By Simon Rey, Grzegorz Pierczyński, Markus Utke and Piotr Skowron
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
