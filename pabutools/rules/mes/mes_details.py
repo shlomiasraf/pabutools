@@ -130,7 +130,7 @@ class MESIteration(list[MESProjectDetails]):
             The budget of all voters at the start of the iteration. Defaults to `None`.
         voters_budget_after_selection: list[int], optional
             The budget of all voters after the selected project was covered. Defaults to `None`.
-        selected_project: :py:class:`~pabutools.electin.instance.Project`, optional
+        selected_project: :py:class:`~pabutools.election.instance.Project`, optional
             The project that was selected at the end of the iteration. Defaults to `None`.
 
     Attributes

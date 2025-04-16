@@ -36,9 +36,9 @@ class MESVisualiser(Visualiser):
 
     Parameters
     ----------
-    profile : :py:class:`~pabutools.election.profile.AbstractProfile`
+    profile : :py:class:`~pabutools.election.profile.profile.AbstractProfile`
         The profile.
-    instance : Instance
+    instance : :py:class:`~pabutools.election.instance.Instance`
         The election instance.
     outcome : :py:class:`~pabutools.rules.budgetallocation.AllocationDetails`
             The outcome of the election.
@@ -489,7 +489,7 @@ class GreedyWelfareVisualiser(Visualiser):
 
     Parameters
     ----------
-    profile : :py:class:`~pabutools.election.profile.AbstractProfile`
+    profile : :py:class:`~pabutools.election.profile.profile.AbstractProfile`
         The profile.
     instance : :py:class:`~pabutools.election.instance.Instance`
         The election instance.
