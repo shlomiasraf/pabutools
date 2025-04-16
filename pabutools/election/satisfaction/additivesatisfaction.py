@@ -145,7 +145,7 @@ def cardinality_sat_func(
     precomputed_values: dict,
 ) -> int:
     """
-    Computes the cardinality satisfaction for ballots. It is equal to 1 if the project is appears in the ballot and
+    Computes the cardinality satisfaction for ballots. It is equal to 1 if the project appears in the ballot and
     0 otherwise.
 
     Parameters

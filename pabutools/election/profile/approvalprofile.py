@@ -328,7 +328,7 @@ def get_all_approval_profiles(
         instance : :py:class:`~pabutools.election.instance.Instance`
             The instance the profile is defined with respect to.
         num_agents : int
-            The length of the profile, i.e., the number of agents..
+            The length of the profile, i.e., the number of agents.
 
     Returns
     -------

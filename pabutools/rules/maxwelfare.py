@@ -314,11 +314,11 @@ def max_additive_utilitarian_welfare(
 ) -> BudgetAllocation | list[BudgetAllocation]:
     """
     Rule returning the budget allocation(s) maximizing the utilitarian social welfare. The
-    utilitarian social welfare is defined as the sum of the satisfactin of the voters, where the
+    utilitarian social welfare is defined as the sum of the satisfaction of the voters, where the
     satisfaction is computed using the satisfaction measure given as a parameter. The satisfaction
     measure is assumed to be additive.
 
-    The outcome can be computed either via a integer linear program solver or with a primal/dual
+    The outcome can be computed either via an integer linear program solver or with a primal/dual
     approach. Note that depending on the selected algorithm, not all functionalities are supported
     (with the ILP solver ties cannot be handled while the primal/dual approach does not support
     irresolute outcomes).
@@ -331,8 +331,8 @@ def max_additive_utilitarian_welfare(
             The profile.
         sat_class : type[:py:class:`~pabutools.election.satisfaction.satisfactionmeasure.SatisfactionMeasure`]
             The class defining the satisfaction function used to measure the social welfare. It should be a class
-            inhereting from pabutools.election.satisfaction.satisfactionmeasure.SatisfactionMeasure.
-            If no satisfaction is provided, a satisfaction profile needs to be provided. If a satisfation profile is
+            inheriting from pabutools.election.satisfaction.satisfactionmeasure.SatisfactionMeasure.
+            If no satisfaction is provided, a satisfaction profile needs to be provided. If a satisfaction profile is
             provided, the satisfaction argument is disregarded.
         sat_profile : :py:class:`~pabutools.election.satisfaction.satisfactionmeasure.GroupSatisfactionMeasure`
             The satisfaction profile corresponding to the instance and the profile. If no satisfaction profile is
