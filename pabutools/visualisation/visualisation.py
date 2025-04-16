@@ -485,7 +485,7 @@ class MESVisualiser(Visualiser):
 class GreedyWelfareVisualiser(Visualiser):
     """
     Class used to visualise the results of a Greedy Welfare election. The visualisation result
-    consits of a round by round analysis page called 'round_analysis.html'.
+    consists of a round by round analysis page called 'round_analysis.html'.
 
     Parameters
     ----------
