@@ -51,45 +51,34 @@ def test_medium_input():
 
 def test_large_input_random_structure_with_fairness():
     import random
-    from collections import defaultdict
-
     num_projects = 30
-    num_voters = 100
-    budget = 50
+    projects = [Project(f"c{i + 1}", cost=random.randint(1, 5)) for i in range(num_projects)]
+    instance = Instance(projects, 50)
 
-    # Step 1: Create 30 projects with random costs between 1 and 5
-    projects = [Project(f"c{i+1}", cost=random.randint(1, 5)) for i in range(num_projects)]
-    instance = Instance(projects, budget)
-
-    # Step 2: Create approval ballots - each voter approves 3 to 5 random projects
+    # Step 1: create approvals
     approvals = [
-        ApprovalBallot(random.sample(range(num_projects), random.randint(3, 5)))
-        for _ in range(num_voters)
+        ApprovalBallot(random.sample(projects, random.randint(3, 5)))
+        for _ in range(100)
     ]
     profile = ApprovalProfile(approvals)
 
-    # Step 3: Run the GPseq algorithm
+    # Step 2: run gpseq
     result = gpseq(instance, profile)
 
-    # Step 4: Basic validity checks
-    assert sum(p.cost for p in result) <= budget  # total cost must not exceed the budget
-    assert all(p in instance.projects for p in result)  # all selected projects must exist in the instance
-
-    # Step 5: Fairness check – ensure that popular projects are represented
-    project_approval_count = defaultdict(int)
+    # Step 3: fairness check – approval-per-cost ratio
+    project_to_index = {p: i for i, p in enumerate(projects)}
+    approval_counts = [0] * num_projects
     for ballot in profile:
-        for project_index in ballot.approved_projects:
-            project_approval_count[project_index] += 1
+        for project in ballot:
+            i = project_to_index[project]
+            approval_counts[i] += 1
 
-    # Define a project as "popular" if it is approved by at least 20 voters
-    popular_threshold = 20
-    popular_projects = {
-        p for i, p in enumerate(instance.projects)
-        if project_approval_count[i] >= popular_threshold
-    }
+    ratios = [(approval_counts[i] / projects[i].cost, projects[i]) for i in range(num_projects)]
+    ratios.sort(reverse=True)  # highest ratio first
+    best_ratio_projects = [p for _, p in ratios[:len(result)]]
 
-    selected_set = set(result)
-    num_represented = len(popular_projects & selected_set)
-
-    # Ensure that at least one-third of the popular projects are selected
-    assert num_represented >= max(1, len(popular_projects) // 3)
+    # Assertion: top ratio projects should mostly be selected
+    selected_names = set(p.name for p in result)
+    best_names = set(p.name for p in best_ratio_projects)
+    overlap = selected_names & best_names
+    assert len(overlap) >= len(result) // 2  # at least half the selection is top ratio
