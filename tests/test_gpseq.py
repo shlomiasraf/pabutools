@@ -1,6 +1,8 @@
+"""
 "Proportionally Representative Participatory Budgeting: Axioms and Algorithms"
 by Haris Aziz, Bettina Klaus, Jérôme Lang, and Markus Brill (2017)
 https://arxiv.org/abs/1711.08226
+"""
 
 import pytest
 from pabutools.election.instance import Project, Instance
