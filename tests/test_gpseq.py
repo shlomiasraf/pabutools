@@ -19,12 +19,11 @@ def test_empty_input():
 
 
 def test_invalid_input():
-    p1 = Project("c1", cost=1)
+    p1 = Project("c1", cost=-5)
     instance = Instance([p1], 1)
-    profile = ApprovalProfile([ApprovalBallot([5])])
+    profile = ApprovalProfile([ApprovalBallot([p1])])
     with pytest.raises(Exception):
         gpseq(instance, profile)
-
 
 def test_small_input():
     p1 = Project("c1", cost=1)
