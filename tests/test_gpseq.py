@@ -28,7 +28,7 @@ def test_invalid_input():
 def test_small_input():
     p1 = Project("c1", cost=1)
     instance = Instance([p1], 1)
-    profile = ApprovalProfile([ApprovalBallot([0])])
+    profile = ApprovalProfile([ApprovalBallot([p1])])
     result = gpseq(instance, profile)
     assert [p.name for p in result] == ["c1"]
 
@@ -39,10 +39,10 @@ def test_medium_input():
     p3 = Project("c3", cost=1.0)
     instance = Instance([p1, p2, p3], 3)
     profile = ApprovalProfile([
-        ApprovalBallot([0, 1]),
-        ApprovalBallot([0]),
-        ApprovalBallot([1, 2]),
-        ApprovalBallot([2]),
+        ApprovalBallot([p1, p2]),
+        ApprovalBallot([p1]),
+        ApprovalBallot([p2, p3]),
+        ApprovalBallot([p2]),
     ])
     result = gpseq(instance, profile)
     assert set(p.name for p in result) == {"c1", "c3"} or {"c2", "c3"}
