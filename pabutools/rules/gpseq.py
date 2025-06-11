@@ -10,21 +10,16 @@ Date: 2025-05-13
 """
 
 from __future__ import annotations
-from typing import List
 from pabutools.election.instance import Instance, Project
-from pabutools.election.profile import ApprovalProfile
+from pabutools.election.profile.approvalprofile import ApprovalProfile
 from pabutools.election.ballot.approvalballot import ApprovalBallot
 from pabutools.tiebreaking import TieBreakingRule, lexico_tie_breaking
-import numpy as np
-import logging
-logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
-
 
 def gpseq(
     instance: Instance,
     profile: ApprovalProfile,
     tie_breaking: TieBreakingRule = lexico_tie_breaking
-) -> List[Project]:
+) -> list[Project]:
     """
     Algorithm 6: GPseq - Greedy Phragmen Sequence algorithm.
 
@@ -118,15 +113,10 @@ def gpseq(
     >>> [p.name for p in result]
     ['c3', 'c1']
     """
-    logging.info("Starting GPseq algorithm")
 
     for project in instance:
         if project.cost < 0:
             raise ValueError(f"Project {project.name} has negative cost: {project.cost}")
-
-    logging.info(f"Initial budget: {instance.budget_limit}")
-    logging.info(f"Projects: {[f'{p.name} (cost={p.cost})' for p in instance]}")
-    logging.info(f"Profile: {[[p.name for p in ballot] for ballot in profile]}")
 
     # Initialize variables
     budget = instance.budget_limit
@@ -143,9 +133,7 @@ def gpseq(
             if p.cost <= remaining_budget and any(p in ballot for ballot in profile)
         }
 
-        logging.debug(f"Feasible projects this round: {[p.name for p in approvers_map]}")
         if not approvers_map:
-            logging.info("No more feasible approved projects. Exiting main loop.")
             break
 
         # Compute the maximal load that would result from adding each project
@@ -157,9 +145,7 @@ def gpseq(
         min_load = min(project_to_load.values())
 
         candidates = [p for p in project_to_load if project_to_load[p] == min_load]
-        logging.debug(f"Minimum load: {min_load}, Candidates: {[p.name for p in candidates]}")
         chosen = tie_breaking.untie(instance, profile, candidates)
-        logging.info(f"Chosen project: {chosen.name} with cost {chosen.cost} and {min_load} max load")
         # Update selected projects, budget and voter loads
         selected_projects.append(chosen)
         remaining_budget -= chosen.cost
@@ -169,24 +155,16 @@ def gpseq(
             current_loads[voter] += cost_per_voter
 
 
-        logging.debug(f"Updated voter loads: {current_loads}")
-        logging.debug(f"Remaining budget: {remaining_budget}")
         available_projects.remove(chosen)
-        logging.debug(f"Added project {chosen.name}, remaining budget: {remaining_budget}")
-
     # Post-processing: Add remaining projects that fit in the remaining budget (not necessarily approved)
     # Sort lexicographically to match paper's suggestion
-    logging.info("Starting post-processing step")
     for p in sorted(available_projects, key=lambda x: x.name):
         if p.cost <= remaining_budget:
             selected_projects.append(p)
             remaining_budget -= p.cost
-            logging.info(f"Post-processed addition: {p.name}, remaining budget: {remaining_budget}")
-    logging.info(f"Final selected projects: {[p.name for p in selected_projects]}")
-    logging.info(f">>>>>>>>>>>>>>>>>>>>>")
     return selected_projects
 
-def compute_load(project: Project, approvers: List[int], current_loads: np.ndarray) -> float:
+def compute_load(project: Project, approvers: list[int], current_loads: np.ndarray) -> float:
     """
     Computes the new maximal load if we add the given project,
     distributing its cost evenly among its supporters.
@@ -217,32 +195,4 @@ def compute_load(project: Project, approvers: List[int], current_loads: np.ndarr
     new_loads = current_loads.copy()
     for voter in approvers:
         new_loads[voter] += cost_per_voter
-    logging.info(f"project: {project.name} with cost {project.cost} and {float(max(new_loads))} max load")
     return float(max(new_loads))
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
-    # Create projects
-    p1 = Project("c1", cost=2)
-    p2 = Project("c2", cost=2)
-    p3 = Project("c3", cost=1)
-
-    # Create instance with total budget 3
-    instance = Instance([p1, p2, p3], budget_limit=3)
-
-    # Create approval profile: voter 0 and 1 approve c1, voter 2 and 3 approve c2
-    profile = ApprovalProfile([
-        ApprovalBallot([p1]),
-        ApprovalBallot([p1]),
-        ApprovalBallot([p2]),
-        ApprovalBallot([p2])
-    ])
-
-    # Run GPseq algorithm
-    selected = gpseq(instance, profile, tie_breaking=lexico_tie_breaking)
-
-    # Print results
-    print("Selected projects:")
-    for project in selected:
-        print(f"{project.name} (cost: {project.cost})")
