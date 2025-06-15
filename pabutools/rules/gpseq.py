@@ -10,7 +10,6 @@ Date: 2025-05-13
 """
 
 from __future__ import annotations
-from typing import List
 from pabutools.election.instance import Instance, Project
 from pabutools.election.profile.approvalprofile import ApprovalProfile
 from pabutools.election.ballot.approvalballot import ApprovalBallot
@@ -24,7 +23,7 @@ def gpseq(
     instance: Instance,
     profile: ApprovalProfile,
     tie_breaking: TieBreakingRule = lexico_tie_breaking
-) -> List[Project]:
+) -> list[Project]:
     """
     Algorithm 6: GPseq - Greedy Phragmen Sequence algorithm.
 
@@ -134,6 +133,7 @@ def gpseq(
     selected_projects = []
     current_loads = np.zeros(len(profile))  # Load per voter
     available_projects = set(instance)  # Instance is a set of projects
+    load_cache = {}  # Memoization cache for compute_load
 
     while True:
         # Build map of feasible projects with their approver indices
@@ -149,10 +149,15 @@ def gpseq(
             break
 
         # Compute the maximal load that would result from adding each project
-        project_to_load = {
-            p: compute_load(p, approvers_map[p], current_loads)
-            for p in approvers_map
-        }
+        project_to_load = {}
+        for p in approvers_map:
+            key = (p.name, tuple(approvers_map[p]), tuple(current_loads))
+            if key in load_cache:
+                load = load_cache[key]
+            else:
+                load = compute_load(p, approvers_map[p], current_loads)
+                load_cache[key] = load
+            project_to_load[p] = load
 
         min_load = min(project_to_load.values())
 
@@ -186,7 +191,7 @@ def gpseq(
     logging.info(f">>>>>>>>>>>>>>>>>>>>>")
     return selected_projects
 
-def compute_load(project: Project, approvers: List[int], current_loads: np.ndarray) -> float:
+def compute_load(project: Project, approvers: list[int], current_loads: np.ndarray) -> float:
     """
     Computes the new maximal load if we add the given project,
     distributing its cost evenly among its supporters.
@@ -219,30 +224,3 @@ def compute_load(project: Project, approvers: List[int], current_loads: np.ndarr
         new_loads[voter] += cost_per_voter
     logging.info(f"project: {project.name} with cost {project.cost} and {float(max(new_loads))} max load")
     return float(max(new_loads))
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
-    # Create projects
-    p1 = Project("c1", cost=2)
-    p2 = Project("c2", cost=2)
-    p3 = Project("c3", cost=1)
-
-    # Create instance with total budget 3
-    instance = Instance([p1, p2, p3], budget_limit=3)
-
-    # Create approval profile: voter 0 and 1 approve c1, voter 2 and 3 approve c2
-    profile = ApprovalProfile([
-        ApprovalBallot([p1]),
-        ApprovalBallot([p1]),
-        ApprovalBallot([p2]),
-        ApprovalBallot([p2])
-    ])
-
-    # Run GPseq algorithm
-    selected = gpseq(instance, profile, tie_breaking=lexico_tie_breaking)
-
-    # Print results
-    print("Selected projects:")
-    for project in selected:
-        print(f"{project.name} (cost: {project.cost})")
