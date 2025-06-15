@@ -121,7 +121,7 @@ def gpseq(
     """
     logging.info("Starting GPseq algorithm")
 
-   if hasattr(profile, "is_multiprofile") and profile.is_multiprofile():
+    if hasattr(profile, "is_multiprofile") and profile.is_multiprofile():
         raise ValueError("GPseq currently does not support MultiProfile")
 
     logging.info("Starting GPseq algorithm")
@@ -209,7 +209,7 @@ def compute_load(project: Project, approvers: list[int], current_loads: np.ndarr
     >>> compute_load(project, [0, 1], np.array([0.0, 0.0]))
     1.0
     """
-   if not approvers:
+    if not approvers:
         return float('inf')
     cost_per_voter = float(frac(project.cost, len(approvers)))
     new_loads = current_loads.copy()
@@ -217,4 +217,3 @@ def compute_load(project: Project, approvers: list[int], current_loads: np.ndarr
         new_loads[voter] += cost_per_voter
     logging.info(f"project: {project.name} with cost {project.cost} and {float(max(new_loads))} max load")
     return float(max(new_loads))
-
