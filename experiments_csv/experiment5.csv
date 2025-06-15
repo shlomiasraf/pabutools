@@ -1,0 +1,9 @@
+type,project_name,cost,approved,budget
+project,a,1,,
+project,b,1.5,,
+project,c,1.5,,
+instance,,, ,3
+ballot,,,a;b;c,
+ballot,,,a;b;c,
+ballot,,,a;b;c,
+ballot,,,a;b;c,

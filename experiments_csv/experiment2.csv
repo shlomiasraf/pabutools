@@ -1,0 +1,10 @@
+type,project_name,cost,approved,budget
+project,x,1,,
+project,y,2,,
+project,z,1,,
+project,w,0.5,,
+instance,,, ,10
+ballot,,,x;y,
+ballot,,,x;z,
+ballot,,,z;w,
+ballot,,,x;w,
