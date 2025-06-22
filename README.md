@@ -4,6 +4,8 @@
 כפי שניתן לראות אלגוריתם Phragmen רץ יותר מהר על הניסויים והם החזירו את אותם פרויקטים כפלט.
 
 לאחר מכן ביצענו שיפור באלגוריתם שלנו ע״י כך שהוספנו זיכרון מטמון לאלגוריתם ע״י הוספת השורות האלה:
+
+
         project_to_load = {}
         for p in approvers_map:
             key = (p.name, tuple(approvers_map[p]), tuple(current_loads))
