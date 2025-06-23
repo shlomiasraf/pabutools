@@ -28,6 +28,7 @@
                 load_cache[key] = load
             project_to_load[p] = load
 שדואגת שלא נחשב שוב ושוב את ה- max load אם דבר לא השתנה.
+
 והרצנו על קלט מאוד גדול לפני ואחרי השינוי וזה התוצאות שקיבלנו:
 ![gpseq_runtime_comparison](https://github.com/user-attachments/assets/3c377a49-8970-4c0d-bc14-3db43c86a2b2)
 
