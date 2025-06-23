@@ -3,10 +3,14 @@
  ![execution_time_comparison](https://github.com/user-attachments/assets/85eca783-5b59-4855-a842-78ac4ba2fcd4)
 כאשר: 
 הניסוי experiment1.csv - מכיל 3 פרויקטים ו-4 מצביעים.
-הניסוי experiment2.csv - מכיל 4 פרויקטים ו-4 מצביעים
-הניסוי experiment3.csv - מכיל 3 פרויקטים ו-6 מצביעים
-הניסוי experiment4.csv - מכיל 4 פרויקטים ו-4 מצביעים
-הניסוי experiment5.csv - מכיל 3 פרויקטים ו-4 מצביעים
+
+הניסוי experiment2.csv - מכיל 4 פרויקטים ו-4 מצביעים.
+
+הניסוי experiment3.csv - מכיל 3 פרויקטים ו-6 מצביעים.
+
+הניסוי experiment4.csv - מכיל 4 פרויקטים ו-4 מצביעים.
+
+הניסוי experiment5.csv - מכיל 3 פרויקטים ו-4 מצביעים.
 
 כפי שניתן לראות אלגוריתם Phragmen רץ יותר מהר על הניסויים והם החזירו את אותם פרויקטים כפלט.
 
