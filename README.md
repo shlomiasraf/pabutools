@@ -2,6 +2,7 @@
 
  ![execution_time_comparison](https://github.com/user-attachments/assets/85eca783-5b59-4855-a842-78ac4ba2fcd4)
 כאשר: 
+
 הניסוי experiment1.csv - מכיל 3 פרויקטים ו-4 מצביעים.
 
 הניסוי experiment2.csv - מכיל 4 פרויקטים ו-4 מצביעים.
