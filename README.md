@@ -32,6 +32,7 @@
 ![gpseq_runtime_comparison](https://github.com/user-attachments/assets/3c377a49-8970-4c0d-bc14-3db43c86a2b2)
 
 הניסוי big_input.csv - שמכיל 1000 פרויקטים ו-1000 מצביעים.
+
 והרצנו גם על כל הניסויים ביחד:
 
 ![gpseq_runtime_lineplot](https://github.com/user-attachments/assets/8e0f7033-555e-46fa-b522-e1c0e6c55371)
